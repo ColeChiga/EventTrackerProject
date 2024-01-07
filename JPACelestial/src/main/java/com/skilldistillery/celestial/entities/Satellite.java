@@ -15,7 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Star {
+public class Satellite {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,15 +23,16 @@ public class Star {
 	private String name;
 	private String about;
 	@Column(name = "image_url")
-	private String imageUrl;
+	private String imageUrl;	
+	@Column(name = "natural_object")
+	private Boolean natural;
 	private Boolean enabled;
-	@Column(name = "right_ascension")
-	private String ascension;
-	private String declination;
-	@Column(name = "age_billion_years")
-	private String age;
-	@Column(name = "lifetime_billion_years")
-	private String lifetime;
+	@Column(name = "radius_km")
+	private Integer radius;
+	@Column(name = "orbital_radius_km")
+	private Integer orbitRadius;
+	@Column(name = "orbital_circumferance_km")
+	private Integer orbitCircumferance;
 	@Column(name = "create_date")
 	@CreationTimestamp
 	private LocalDateTime createDate;
@@ -39,17 +40,12 @@ public class Star {
 	@UpdateTimestamp
 	private LocalDateTime lastUpdate;
 	
-	@ManyToOne
-	@JoinColumn(name = "constellation_id")
-	private Constellation constellation;
-
-	@ManyToOne
-	@JoinColumn(name = "star_type_id")
-	private StarType starType;
-
 	
+	@ManyToOne
+	@JoinColumn(name = "planet_id")
+	private Planet planet;
 
-	public Star() {
+	public Satellite() {
 	}
 
 	public int getId() {
@@ -108,52 +104,38 @@ public class Star {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public String getAscension() {
-		return ascension;
+	public Integer getOrbitRadius() {
+		return orbitRadius;
 	}
 
-	public void setAscension(String ascension) {
-		this.ascension = ascension;
+	public void setOrbitRadius(Integer orbitRadius) {
+		this.orbitRadius = orbitRadius;
 	}
 
-	public String getDeclination() {
-		return declination;
+	public Integer getOrbitCircumferance() {
+		return orbitCircumferance;
 	}
 
-	public void setDeclination(String declination) {
-		this.declination = declination;
+	public void setOrbitCircumferance(Integer orbitCircumference) {
+		this.orbitCircumferance = orbitCircumference;
 	}
 
-	public String getAge() {
-		return age;
-	}
-
-	public void setAge(String age) {
-		this.age = age;
-	}
-
-	public String getLifetime() {
-		return lifetime;
-	}
-
-	public void setLifetime(String lifetime) {
-		this.lifetime = lifetime;
-	}
-
-	public StarType getStarType() {
-		return starType;
+	
+	public void setRadius(Integer radius) {
+		this.radius = radius;
 	}
 	
-	public void setStarType(StarType starType) {
-		this.starType = starType;
+	public Integer getRadius() {
+		return radius;
 	}
-	public Constellation getConstellation() {
-		return constellation;
+	public Planet getStar() {
+		return planet;
 	}
-
-	public void setConstellation(Constellation constellation) {
-		this.constellation = constellation;
+	
+	public void setStar(Planet planet) {
+		this.planet = planet;
 	}
+	
 
 	@Override
 	public int hashCode() {
@@ -168,15 +150,15 @@ public class Star {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Star other = (Star) obj;
+		Satellite other = (Satellite) obj;
 		return id == other.id;
 	}
 
 	@Override
 	public String toString() {
 		return "Star [id=" + id + ", name=" + name + ", about=" + about + ", imageUrl=" + imageUrl + ", enabled="
-				+ enabled + ", ascension=" + ascension + ", declination=" + declination + ", age=" + age + ", lifetime="
-				+ lifetime + ", createDate=" + createDate + ", lastUpdate=" + lastUpdate + "]";
+				+ enabled + ", declination=" + radius + ", orbitRadius=" + orbitRadius + ", orbitCircumferance="
+				+ orbitCircumferance + ", createDate=" + createDate + ", lastUpdate=" + lastUpdate + "]";
 	}
 
 }

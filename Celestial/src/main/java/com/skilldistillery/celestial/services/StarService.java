@@ -6,8 +6,10 @@ import com.skilldistillery.celestial.entities.Star;
 
 public interface StarService {
 	List<Star> listAll();
-	Star findById();
+	List<Star> listAllEnabled();
+	Star findById(int id);
 	Star create(Star star);
 	Star update(int id, Star star);
 	boolean delete(int id);
+	boolean enable(int id);
 }

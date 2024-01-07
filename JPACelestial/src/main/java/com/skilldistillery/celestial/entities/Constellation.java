@@ -1,21 +1,24 @@
 package com.skilldistillery.celestial.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
-public class Star {
+public class Constellation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,13 +28,6 @@ public class Star {
 	@Column(name = "image_url")
 	private String imageUrl;
 	private Boolean enabled;
-	@Column(name = "right_ascension")
-	private String ascension;
-	private String declination;
-	@Column(name = "age_billion_years")
-	private String age;
-	@Column(name = "lifetime_billion_years")
-	private String lifetime;
 	@Column(name = "create_date")
 	@CreationTimestamp
 	private LocalDateTime createDate;
@@ -39,17 +35,13 @@ public class Star {
 	@UpdateTimestamp
 	private LocalDateTime lastUpdate;
 	
-	@ManyToOne
-	@JoinColumn(name = "constellation_id")
-	private Constellation constellation;
 
-	@ManyToOne
-	@JoinColumn(name = "star_type_id")
-	private StarType starType;
+	@OneToMany(mappedBy = "constellation")
+	@JsonIgnore
+	private List<Star> stars;
 
 	
-
-	public Star() {
+	public Constellation() {
 	}
 
 	public int getId() {
@@ -108,52 +100,31 @@ public class Star {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public String getAscension() {
-		return ascension;
+	public List<Star> getStars() {
+		return stars;
 	}
 
-	public void setAscension(String ascension) {
-		this.ascension = ascension;
-	}
-
-	public String getDeclination() {
-		return declination;
-	}
-
-	public void setDeclination(String declination) {
-		this.declination = declination;
-	}
-
-	public String getAge() {
-		return age;
-	}
-
-	public void setAge(String age) {
-		this.age = age;
-	}
-
-	public String getLifetime() {
-		return lifetime;
-	}
-
-	public void setLifetime(String lifetime) {
-		this.lifetime = lifetime;
-	}
-
-	public StarType getStarType() {
-		return starType;
+	public void setStars(List<Star> stars) {
+		this.stars = stars;
 	}
 	
-	public void setStarType(StarType starType) {
-		this.starType = starType;
-	}
-	public Constellation getConstellation() {
-		return constellation;
+	public void addStar(Star star) {
+		if (stars == null) {
+			stars = new ArrayList<>();
+		}
+		if (!stars.contains(star)) {
+			stars.add(star);
+			star.setConstellation(this);
+		}
 	}
 
-	public void setConstellation(Constellation constellation) {
-		this.constellation = constellation;
+	public void removeStar(Star star) {
+		if (stars != null && stars.contains(star)) {
+			stars.remove(star);
+			star.setConstellation(null);
+		}
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -168,15 +139,14 @@ public class Star {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Star other = (Star) obj;
+		Constellation other = (Constellation) obj;
 		return id == other.id;
 	}
 
 	@Override
 	public String toString() {
-		return "Star [id=" + id + ", name=" + name + ", about=" + about + ", imageUrl=" + imageUrl + ", enabled="
-				+ enabled + ", ascension=" + ascension + ", declination=" + declination + ", age=" + age + ", lifetime="
-				+ lifetime + ", createDate=" + createDate + ", lastUpdate=" + lastUpdate + "]";
+		return "StarType [id=" + id + ", name=" + name + ", about=" + about + ", imageUrl=" + imageUrl + ", enabled="
+				+ enabled + ", createDate=" + createDate + ", lastUpdate=" + lastUpdate + "]";
 	}
 
 }
