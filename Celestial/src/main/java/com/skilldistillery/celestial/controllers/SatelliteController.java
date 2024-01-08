@@ -47,7 +47,7 @@ public class SatelliteController {
 
 	@GetMapping("admin/satellites/{id}")
 	public Satellite findSatellitesById(@PathVariable("id") int id, HttpServletResponse resp) {
-		Satellite satellite = satelliteService.selectSatellitesById(id);
+		Satellite satellite = satelliteService.findById(id);
 		if (satellite != null) {
 			resp.setStatus(200);
 		} else {

@@ -48,7 +48,7 @@ public class ConstellationController {
 
 	@GetMapping("admin/constellations/{id}")
 	public Constellation findConstellationsById(@PathVariable("id") int id, HttpServletResponse resp) {
-		Constellation constellation = constellationService.selectConstellationsById(id);
+		Constellation constellation = constellationService.findById(id);
 		if (constellation != null) {
 			resp.setStatus(200);
 		} else {

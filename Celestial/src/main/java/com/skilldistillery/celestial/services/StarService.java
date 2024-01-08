@@ -13,5 +13,4 @@ public interface StarService {
 	boolean delete(int id);
 	boolean enable(int id);
 	Star selectEnabledStarsById(int id);
-	Star selectStarsById(int id);
 }

@@ -76,16 +76,6 @@ public class PlanetServiceImpl implements PlanetService {
 	}
 
 	@Override
-	public Planet selectPlanetsById(int id) {
-		Optional<Planet> optPlanet = planetRepo.findById(id);
-		if (optPlanet.isPresent()) {
-			return optPlanet.get();
-		} else {
-			return null;
-		}
-	}
-
-	@Override
 	public Planet selectEnabledPlanetsById(int id) {
 		return planetRepo.searchByIdAndEnabled(id, true);
 	}

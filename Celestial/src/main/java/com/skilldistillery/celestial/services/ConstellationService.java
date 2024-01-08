@@ -13,5 +13,4 @@ public interface ConstellationService {
 	boolean delete(int id);
 	boolean enable(int id);
 	Constellation selectEnabledConstellationsById(int id);
-	Constellation selectConstellationsById(int id);
 }

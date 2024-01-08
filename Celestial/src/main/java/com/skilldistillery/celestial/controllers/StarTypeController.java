@@ -47,7 +47,7 @@ public class StarTypeController {
 
 	@GetMapping("admin/starTypes/{id}")
 	public StarType findStarTypesById(@PathVariable("id") int id, HttpServletResponse resp) {
-		StarType starType = starTypeService.selectStarTypesById(id);
+		StarType starType = starTypeService.findById(id);
 		if (starType != null) {
 			resp.setStatus(200);
 		} else {

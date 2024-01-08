@@ -80,18 +80,10 @@ public class SatelliteServiceImpl implements SatelliteService {
 
 
 	@Override
-	public Satellite selectSatellitesById(int id) {
-		Optional<Satellite> optSatellite = satelliteRepo.findById(id);
-		if (optSatellite.isPresent()) {
-			return optSatellite.get();
-		} else {
-			return null;
-		}
-	}
-
-	@Override
 	public Satellite selectEnabledSatellitesById(int id) {
-		return satelliteRepo.searchByIdAndEnabled(id, true);
+		Satellite optSatellite = satelliteRepo.searchByIdAndEnabled(id, true);
+			return optSatellite;
+		
 	}
 
 

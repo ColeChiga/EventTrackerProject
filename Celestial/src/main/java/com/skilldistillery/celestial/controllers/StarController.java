@@ -47,7 +47,7 @@ public class StarController {
 
 	@GetMapping("admin/stars/{id}")
 	public Star findStarsById(@PathVariable("id") int id, HttpServletResponse resp) {
-		Star star = starService.selectStarsById(id);
+		Star star = starService.findById(id);
 		if (star != null) {
 			resp.setStatus(200);
 		} else {

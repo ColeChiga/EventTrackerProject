@@ -79,16 +79,6 @@ public class ConstellationServiceImpl implements ConstellationService {
 	}
 
 	@Override
-	public Constellation selectConstellationsById(int id) {
-		Optional<Constellation> optConstellation = constellationRepo.findById(id);
-		if (optConstellation.isPresent()) {
-			return optConstellation.get();
-		} else {
-			return null;
-		}
-	}
-
-	@Override
 	public Constellation selectEnabledConstellationsById(int id) {
 		return constellationRepo.searchByIdAndEnabled(id, true);
 	}

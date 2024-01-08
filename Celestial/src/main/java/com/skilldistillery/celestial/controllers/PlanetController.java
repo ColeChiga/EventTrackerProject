@@ -48,7 +48,7 @@ public class PlanetController {
 
 	@GetMapping("admin/planets/{id}")
 	public Planet findPlanetsById(@PathVariable("id") int id, HttpServletResponse resp) {
-		Planet planet = planetService.selectPlanetsById(id);
+		Planet planet = planetService.findById(id);
 		if (planet != null) {
 			resp.setStatus(200);
 		} else {

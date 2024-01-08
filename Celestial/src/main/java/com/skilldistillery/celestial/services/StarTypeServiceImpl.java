@@ -80,18 +80,10 @@ public class StarTypeServiceImpl implements StarTypeService {
 
 	@Override
 	public StarType selectEnabledStarTypesById(int id) {
-		Optional<StarType> optStarType = starRepo.findById(id);
-		if (optStarType.isPresent()) {
-			return optStarType.get();
-		} else {
-			return null;
-		}
+		StarType optStarType = starRepo.searchByIdAndEnabled(id, true);
+			return optStarType;
 	}
 
-	@Override
-	public StarType selectStarTypesById(int id) {
-		return starRepo.searchByIdAndEnabled(id, true);
-	}
 
 
 }

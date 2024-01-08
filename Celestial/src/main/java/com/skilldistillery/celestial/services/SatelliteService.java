@@ -13,5 +13,4 @@ public interface SatelliteService {
 	boolean delete(int id);
 	boolean enable(int id);
 	Satellite selectEnabledSatellitesById(int id);
-	Satellite selectSatellitesById(int id);
 }

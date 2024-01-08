@@ -15,7 +15,7 @@ public class StarServiceImpl implements StarService {
 
 	@Autowired
 	StarRepository starRepo;
-	
+
 	@Override
 	public List<Star> listAll() {
 		return starRepo.findAll();
@@ -31,9 +31,8 @@ public class StarServiceImpl implements StarService {
 		Optional<Star> optStar = starRepo.findById(id);
 		if (optStar.isPresent()) {
 			return optStar.get();
-		}
-		else {
-			return null;			
+		} else {
+			return null;
 		}
 	}
 
@@ -44,7 +43,7 @@ public class StarServiceImpl implements StarService {
 
 	@Override
 	public Star update(int id, Star star) {
-		if(starRepo.findById(id).isPresent()) {
+		if (starRepo.findById(id).isPresent()) {
 			return starRepo.saveAndFlush(star);
 		} else {
 			return null;
@@ -53,17 +52,17 @@ public class StarServiceImpl implements StarService {
 
 	@Override
 	public boolean delete(int id) {
-	Optional<Star> optStar = starRepo.findById(id);
+		Optional<Star> optStar = starRepo.findById(id);
 		if (optStar.isPresent()) {
 			Star star = optStar.get();
 			star.setEnabled(false);
 			starRepo.saveAndFlush(star);
 			return true;
-		}
-		else {
-			return false;			
+		} else {
+			return false;
 		}
 	}
+
 	@Override
 	public boolean enable(int id) {
 		Optional<Star> optStar = starRepo.findById(id);
@@ -72,26 +71,17 @@ public class StarServiceImpl implements StarService {
 			star.setEnabled(true);
 			starRepo.saveAndFlush(star);
 			return true;
-		}
-		else {
-			return false;			
+		} else {
+			return false;
 		}
 	}
 
 	@Override
 	public Star selectEnabledStarsById(int id) {
-		Optional<Star> optStar = starRepo.findById(id);
-		if (optStar.isPresent()) {
-			return optStar.get();
-		} else {
-			return null;
-		}
-	}
+		Star optStar = starRepo.searchByIdAndEnabled(id, true);
 
-	@Override
-	public Star selectStarsById(int id) {
-		return starRepo.searchByIdAndEnabled(id, true);
-	}
+		return optStar;
 
+	}
 
 }
