@@ -12,4 +12,6 @@ public interface StarTypeService {
 	StarType update(int id, StarType starType);
 	boolean delete(int id);
 	boolean enable(int id);
+	StarType selectEnabledStarTypesById(int id);
+	StarType selectStarTypesById(int id);
 }

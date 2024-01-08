@@ -8,6 +8,8 @@ import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,11 +31,11 @@ public class Planet {
 	private String imageUrl;
 	private Boolean enabled;
 	@Column(name = "radius_km")
-	private Integer radius;
+	private Double radius;
 	@Column(name = "orbital_radius_AU")
-	private Integer orbitRadius;
+	private Double orbitRadius;
 	@Column(name = "orbital_circumference_AU")
-	private Integer orbitCircumferance;
+	private Double orbitCircumferance;
 	@Column(name = "create_date")
 	@CreationTimestamp
 	private LocalDateTime createDate;
@@ -41,12 +43,12 @@ public class Planet {
 	@UpdateTimestamp
 	private LocalDateTime lastUpdate;
 	
-	
 	@ManyToOne
 	@JoinColumn(name = "star_id")
 	private Star star;
 	
 	@OneToMany(mappedBy = "planet")
+	@JsonIgnore
 	private List<Satellite> satellites;
 
 	public Planet() {
@@ -108,38 +110,39 @@ public class Planet {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public Integer getOrbitRadius() {
+	public Double getOrbitRadius() {
 		return orbitRadius;
 	}
 
-	public void setOrbitRadius(Integer orbitRadius) {
+	public void setOrbitRadius(Double orbitRadius) {
 		this.orbitRadius = orbitRadius;
 	}
 
-	public Integer getOrbitCircumferance() {
+	public Double getOrbitCircumferance() {
 		return orbitCircumferance;
 	}
 
-	public void setOrbitCircumferance(Integer orbitCircumference) {
+	public void setOrbitCircumferance(Double orbitCircumference) {
 		this.orbitCircumferance = orbitCircumference;
 	}
 
 	
-	public void setRadius(Integer radius) {
+	public void setRadius(Double radius) {
 		this.radius = radius;
 	}
 	
-	public Integer getRadius() {
+	public Double getRadius() {
 		return radius;
 	}
 	public Star getStar() {
 		return star;
 	}
 	
+	@JsonIgnore
 	public List<Satellite> getSatellite() {
 		return satellites;
 	}
-
+	
 	public void setSatellites(List<Satellite> satellite) {
 		this.satellites = satellite;
 	}
@@ -184,7 +187,7 @@ public class Planet {
 
 	@Override
 	public String toString() {
-		return "Star [id=" + id + ", name=" + name + ", about=" + about + ", imageUrl=" + imageUrl + ", enabled="
+		return "Planet [id=" + id + ", name=" + name + ", about=" + about + ", imageUrl=" + imageUrl + ", enabled="
 				+ enabled + ", declination=" + radius + ", orbitRadius=" + orbitRadius + ", orbitCircumferance="
 				+ orbitCircumferance + ", createDate=" + createDate + ", lastUpdate=" + lastUpdate + "]";
 	}

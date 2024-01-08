@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.celestial.entities.Star;
+import com.skilldistillery.celestial.entities.Star;
 import com.skilldistillery.celestial.services.StarService;
 
 @RestController
@@ -29,6 +30,14 @@ public class StarController {
 	@GetMapping("admin/stars")
 	public List<Star> findAllStars(){
 		return starService.listAll();
+	}
+	@GetMapping("admin/stars/{id}")
+	public Star findStarsById(@PathVariable("id") int id){
+		return starService.selectStarsById(id);
+	}
+	@GetMapping("stars/{id}")
+	public Star findEnabledStarsById(@PathVariable("id") int id){
+		return starService.selectEnabledStarsById(id);
 	}
 	
 	@PostMapping(path = {"stars"})

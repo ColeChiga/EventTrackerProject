@@ -12,40 +12,50 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.celestial.entities.Star;
-import com.skilldistillery.celestial.services.StarService;
+import com.skilldistillery.celestial.entities.Satellite;
+import com.skilldistillery.celestial.entities.Satellite;
+import com.skilldistillery.celestial.services.SatelliteService;
 
 @RestController
 @RequestMapping("api")
 public class SatelliteController {
 
 	@Autowired
-	private StarService starService;
+	private SatelliteService satelliteService;
 	
-	@GetMapping(path = {"stars", "stars/"})
-	public List<Star> findAllEnabledStars(){
-		return starService.listAllEnabled();
+	@GetMapping(path = {"satellites", "satellites/"})
+	public List<Satellite> findAllEnabledSatellites(){
+		return satelliteService.listAllEnabled();
 	}
-	@GetMapping("admin/stars")
-	public List<Star> findAllStars(){
-		return starService.listAll();
+	@GetMapping("admin/satellites")
+	public List<Satellite> findAllSatellites(){
+		return satelliteService.listAll();
+	}
+	@GetMapping("admin/satellites/{id}")
+	public Satellite findSatellitesById(@PathVariable("id") int id){
+		return satelliteService.selectSatellitesById(id);
+	}
+	@GetMapping("satellites/{id}")
+	public Satellite findEnabledSatellitesById(@PathVariable("id") int id){
+		return satelliteService.selectEnabledSatellitesById(id);
 	}
 	
-	@PostMapping(path = {"stars"})
-	public Star createStar(@RequestBody Star star){
-		return starService.create(star);
+	
+	@PostMapping(path = {"satellites"})
+	public Satellite createSatellite(@RequestBody Satellite satellite){
+		return satelliteService.create(satellite);
 	}
-	@PutMapping("stars/{id}")
-	public Star updateStar(@PathVariable("id") int id, @RequestBody Star star){
-		return starService.update(id, star);
+	@PutMapping("satellites/{id}")
+	public Satellite updateSatellite(@PathVariable("id") int id, @RequestBody Satellite satellite){
+		return satelliteService.update(id, satellite);
 	}
-	@DeleteMapping(path = {"stars/{id}"})
+	@DeleteMapping(path = {"satellites/{id}"})
 	public void deletetar(@PathVariable("id") int id){
-		starService.delete(id);
+		satelliteService.delete(id);
 	}
-	@PutMapping("stars/{id}/enable")
-	public void enableStar(@PathVariable("id") int id){
-		 starService.enable(id);
+	@PutMapping("satellites/{id}/enable")
+	public void enableSatellite(@PathVariable("id") int id){
+		 satelliteService.enable(id);
 	}
 	
 }

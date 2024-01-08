@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.celestial.entities.Star;
+import com.skilldistillery.celestial.entities.Star;
 import com.skilldistillery.celestial.repositories.StarRepository;
 
 @Service
@@ -75,6 +76,21 @@ public class StarServiceImpl implements StarService {
 		else {
 			return false;			
 		}
+	}
+
+	@Override
+	public Star selectEnabledStarsById(int id) {
+		Optional<Star> optStar = starRepo.findById(id);
+		if (optStar.isPresent()) {
+			return optStar.get();
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public Star selectStarsById(int id) {
+		return starRepo.searchByIdAndEnabled(id, true);
 	}
 
 

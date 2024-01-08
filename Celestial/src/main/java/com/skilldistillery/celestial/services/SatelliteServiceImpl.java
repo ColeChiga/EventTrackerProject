@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.celestial.entities.Satellite;
+import com.skilldistillery.celestial.entities.Satellite;
 import com.skilldistillery.celestial.repositories.SatelliteRepository;
 
 @Service
@@ -75,6 +76,22 @@ public class SatelliteServiceImpl implements SatelliteService {
 		else {
 			return false;			
 		}
+	}
+
+
+	@Override
+	public Satellite selectSatellitesById(int id) {
+		Optional<Satellite> optSatellite = satelliteRepo.findById(id);
+		if (optSatellite.isPresent()) {
+			return optSatellite.get();
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public Satellite selectEnabledSatellitesById(int id) {
+		return satelliteRepo.searchByIdAndEnabled(id, true);
 	}
 
 

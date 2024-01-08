@@ -12,40 +12,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.celestial.entities.Star;
-import com.skilldistillery.celestial.services.StarService;
+import com.skilldistillery.celestial.entities.StarType;
+import com.skilldistillery.celestial.entities.StarType;
+import com.skilldistillery.celestial.services.StarTypeService;
 
 @RestController
 @RequestMapping("api")
 public class StarTypeController {
 
 	@Autowired
-	private StarService starService;
+	private StarTypeService starTypeService;
 	
-	@GetMapping(path = {"stars", "stars/"})
-	public List<Star> findAllEnabledStars(){
-		return starService.listAllEnabled();
+	@GetMapping(path = {"starTypes", "starTypes/"})
+	public List<StarType> findAllEnabledStarTypes(){
+		return starTypeService.listAllEnabled();
 	}
-	@GetMapping("admin/stars")
-	public List<Star> findAllStars(){
-		return starService.listAll();
+	@GetMapping("admin/starTypes")
+	public List<StarType> findAllStarTypes(){
+		return starTypeService.listAll();
+	}
+	@GetMapping("admin/starTypes/{id}")
+	public StarType findStarTypesById(@PathVariable("id") int id){
+		return starTypeService.selectStarTypesById(id);
+	}
+	@GetMapping("starTypes/{id}")
+	public StarType findEnabledStarTypesById(@PathVariable("id") int id){
+		return starTypeService.selectEnabledStarTypesById(id);
 	}
 	
-	@PostMapping(path = {"stars"})
-	public Star createStar(@RequestBody Star star){
-		return starService.create(star);
+	@PostMapping(path = {"starTypes"})
+	public StarType createStarType(@RequestBody StarType starType){
+		return starTypeService.create(starType);
 	}
-	@PutMapping("stars/{id}")
-	public Star updateStar(@PathVariable("id") int id, @RequestBody Star star){
-		return starService.update(id, star);
+	@PutMapping("starTypes/{id}")
+	public StarType updateStarType(@PathVariable("id") int id, @RequestBody StarType starType){
+		return starTypeService.update(id, starType);
 	}
-	@DeleteMapping(path = {"stars/{id}"})
+	@DeleteMapping(path = {"starTypes/{id}"})
 	public void deletetar(@PathVariable("id") int id){
-		starService.delete(id);
+		starTypeService.delete(id);
 	}
-	@PutMapping("stars/{id}/enable")
-	public void enableStar(@PathVariable("id") int id){
-		 starService.enable(id);
+	@PutMapping("starTypes/{id}/enable")
+	public void enableStarType(@PathVariable("id") int id){
+		 starTypeService.enable(id);
 	}
 	
 }

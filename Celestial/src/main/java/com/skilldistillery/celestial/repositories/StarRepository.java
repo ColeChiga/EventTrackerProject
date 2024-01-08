@@ -8,4 +8,6 @@ import com.skilldistillery.celestial.entities.Star;
 
 public interface StarRepository extends JpaRepository<Star, Integer>{
 	List<Star> searchByEnabled(boolean enabled);
+
+	Star searchByIdAndEnabled(int id, boolean b);
 }

@@ -14,7 +14,7 @@ public class PlanetServiceImpl implements PlanetService {
 
 	@Autowired
 	PlanetRepository planetRepo;
-	
+
 	@Override
 	public List<Planet> listAll() {
 		return planetRepo.findAll();
@@ -30,9 +30,8 @@ public class PlanetServiceImpl implements PlanetService {
 		Optional<Planet> optPlanet = planetRepo.findById(id);
 		if (optPlanet.isPresent()) {
 			return optPlanet.get();
-		}
-		else {
-			return null;			
+		} else {
+			return null;
 		}
 	}
 
@@ -43,7 +42,7 @@ public class PlanetServiceImpl implements PlanetService {
 
 	@Override
 	public Planet update(int id, Planet planet) {
-		if(planetRepo.findById(id).isPresent()) {
+		if (planetRepo.findById(id).isPresent()) {
 			return planetRepo.saveAndFlush(planet);
 		} else {
 			return null;
@@ -52,17 +51,17 @@ public class PlanetServiceImpl implements PlanetService {
 
 	@Override
 	public boolean delete(int id) {
-	Optional<Planet> optPlanet = planetRepo.findById(id);
+		Optional<Planet> optPlanet = planetRepo.findById(id);
 		if (optPlanet.isPresent()) {
 			Planet planet = optPlanet.get();
 			planet.setEnabled(false);
 			planetRepo.saveAndFlush(planet);
 			return true;
-		}
-		else {
-			return false;			
+		} else {
+			return false;
 		}
 	}
+
 	@Override
 	public boolean enable(int id) {
 		Optional<Planet> optPlanet = planetRepo.findById(id);
@@ -71,11 +70,24 @@ public class PlanetServiceImpl implements PlanetService {
 			planet.setEnabled(true);
 			planetRepo.saveAndFlush(planet);
 			return true;
-		}
-		else {
-			return false;			
+		} else {
+			return false;
 		}
 	}
 
+	@Override
+	public Planet selectPlanetsById(int id) {
+		Optional<Planet> optPlanet = planetRepo.findById(id);
+		if (optPlanet.isPresent()) {
+			return optPlanet.get();
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public Planet selectEnabledPlanetsById(int id) {
+		return planetRepo.searchByIdAndEnabled(id, true);
+	}
 
 }

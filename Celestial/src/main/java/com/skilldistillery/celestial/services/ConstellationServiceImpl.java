@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.celestial.entities.Constellation;
+import com.skilldistillery.celestial.entities.Constellation;
 import com.skilldistillery.celestial.repositories.ConstellationRepository;
 
 @Service
@@ -75,6 +76,21 @@ public class ConstellationServiceImpl implements ConstellationService {
 		else {
 			return false;			
 		}
+	}
+
+	@Override
+	public Constellation selectConstellationsById(int id) {
+		Optional<Constellation> optConstellation = constellationRepo.findById(id);
+		if (optConstellation.isPresent()) {
+			return optConstellation.get();
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public Constellation selectEnabledConstellationsById(int id) {
+		return constellationRepo.searchByIdAndEnabled(id, true);
 	}
 
 

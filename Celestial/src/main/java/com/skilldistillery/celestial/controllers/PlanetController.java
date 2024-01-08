@@ -12,40 +12,48 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.celestial.entities.Star;
-import com.skilldistillery.celestial.services.StarService;
+import com.skilldistillery.celestial.entities.Planet;
+import com.skilldistillery.celestial.services.PlanetService;
 
 @RestController
 @RequestMapping("api")
 public class PlanetController {
 
 	@Autowired
-	private StarService starService;
+	private PlanetService planetService;
 	
-	@GetMapping(path = {"stars", "stars/"})
-	public List<Star> findAllEnabledStars(){
-		return starService.listAllEnabled();
+	@GetMapping(path = {"planets", "planets/"})
+	public List<Planet> findAllEnabledPlanets(){
+		return planetService.listAllEnabled();
 	}
-	@GetMapping("admin/stars")
-	public List<Star> findAllStars(){
-		return starService.listAll();
+	@GetMapping("admin/planets")
+	public List<Planet> findAllPlanets(){
+		return planetService.listAll();
+	}
+	@GetMapping("admin/planets/{id}")
+	public Planet findPlanetsById(@PathVariable("id") int id){
+		return planetService.selectPlanetsById(id);
+	}
+	@GetMapping("planets/{id}")
+	public Planet findEnabledPlanetsById(@PathVariable("id") int id){
+		return planetService.selectEnabledPlanetsById(id);
 	}
 	
-	@PostMapping(path = {"stars"})
-	public Star createStar(@RequestBody Star star){
-		return starService.create(star);
+	@PostMapping(path = {"planets"})
+	public Planet createPlanet(@RequestBody Planet planet){
+		return planetService.create(planet);
 	}
-	@PutMapping("stars/{id}")
-	public Star updateStar(@PathVariable("id") int id, @RequestBody Star star){
-		return starService.update(id, star);
+	@PutMapping("planets/{id}")
+	public Planet updatePlanet(@PathVariable("id") int id, @RequestBody Planet planet){
+		return planetService.update(id, planet);
 	}
-	@DeleteMapping(path = {"stars/{id}"})
+	@DeleteMapping(path = {"planets/{id}"})
 	public void deletetar(@PathVariable("id") int id){
-		starService.delete(id);
+		planetService.delete(id);
 	}
-	@PutMapping("stars/{id}/enable")
-	public void enableStar(@PathVariable("id") int id){
-		 starService.enable(id);
+	@PutMapping("planets/{id}/enable")
+	public void enablePlanet(@PathVariable("id") int id){
+		 planetService.enable(id);
 	}
 	
 }

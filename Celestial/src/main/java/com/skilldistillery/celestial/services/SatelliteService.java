@@ -12,4 +12,6 @@ public interface SatelliteService {
 	Satellite update(int id, Satellite satellite);
 	boolean delete(int id);
 	boolean enable(int id);
+	Satellite selectEnabledSatellitesById(int id);
+	Satellite selectSatellitesById(int id);
 }

@@ -6,6 +6,8 @@ import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,9 +30,9 @@ public class Satellite {
 	private Boolean natural;
 	private Boolean enabled;
 	@Column(name = "orbital_radius_km")
-	private Integer orbitRadius;
+	private Double orbitRadius;
 	@Column(name = "orbital_circumference_km")
-	private Integer orbitCircumferance;
+	private Double orbitCircumferance;
 	@Column(name = "create_date")
 	@CreationTimestamp
 	private LocalDateTime createDate;
@@ -102,19 +104,19 @@ public class Satellite {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public Integer getOrbitRadius() {
+	public Double getOrbitRadius() {
 		return orbitRadius;
 	}
 
-	public void setOrbitRadius(Integer orbitRadius) {
+	public void setOrbitRadius(Double orbitRadius) {
 		this.orbitRadius = orbitRadius;
 	}
 
-	public Integer getOrbitCircumferance() {
+	public Double getOrbitCircumferance() {
 		return orbitCircumferance;
 	}
 
-	public void setOrbitCircumferance(Integer orbitCircumference) {
+	public void setOrbitCircumferance(Double orbitCircumference) {
 		this.orbitCircumferance = orbitCircumference;
 	}
 

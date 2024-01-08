@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.celestial.entities.Star;
 import com.skilldistillery.celestial.entities.StarType;
 import com.skilldistillery.celestial.repositories.StarTypeRepository;
 
@@ -75,6 +76,21 @@ public class StarTypeServiceImpl implements StarTypeService {
 		else {
 			return false;			
 		}
+	}
+
+	@Override
+	public StarType selectEnabledStarTypesById(int id) {
+		Optional<StarType> optStarType = starRepo.findById(id);
+		if (optStarType.isPresent()) {
+			return optStarType.get();
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public StarType selectStarTypesById(int id) {
+		return starRepo.searchByIdAndEnabled(id, true);
 	}
 
 

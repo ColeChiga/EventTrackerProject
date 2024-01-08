@@ -12,4 +12,6 @@ public interface PlanetService {
 	Planet update(int id, Planet planet);
 	boolean delete(int id);
 	boolean enable(int id);
+	Planet selectPlanetsById(int id);
+	Planet selectEnabledPlanetsById(int id);
 }

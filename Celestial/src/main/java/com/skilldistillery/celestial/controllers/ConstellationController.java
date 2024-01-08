@@ -12,40 +12,50 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.celestial.entities.Star;
-import com.skilldistillery.celestial.services.StarService;
+import com.skilldistillery.celestial.entities.Constellation;
+import com.skilldistillery.celestial.entities.Constellation;
+import com.skilldistillery.celestial.services.ConstellationService;
 
 @RestController
 @RequestMapping("api")
 public class ConstellationController {
 
 	@Autowired
-	private StarService starService;
+	private ConstellationService constellationService;
 	
-	@GetMapping(path = {"stars", "stars/"})
-	public List<Star> findAllEnabledStars(){
-		return starService.listAllEnabled();
+	@GetMapping(path = {"constellations", "constellations/"})
+	public List<Constellation> findAllEnabledConstellations(){
+		return constellationService.listAllEnabled();
 	}
-	@GetMapping("admin/stars")
-	public List<Star> findAllStars(){
-		return starService.listAll();
+	@GetMapping("admin/constellations")
+	public List<Constellation> findAllConstellations(){
+		return constellationService.listAll();
 	}
 	
-	@PostMapping(path = {"stars"})
-	public Star createStar(@RequestBody Star star){
-		return starService.create(star);
+	@GetMapping("admin/constellations/{id}")
+	public Constellation findConstellationsById(@PathVariable("id") int id){
+		return constellationService.selectConstellationsById(id);
 	}
-	@PutMapping("stars/{id}")
-	public Star updateStar(@PathVariable("id") int id, @RequestBody Star star){
-		return starService.update(id, star);
+	@GetMapping("constellations/{id}")
+	public Constellation findEnabledConstellationsById(@PathVariable("id") int id){
+		return constellationService.selectEnabledConstellationsById(id);
 	}
-	@DeleteMapping(path = {"stars/{id}"})
+	
+	@PostMapping(path = {"constellations"})
+	public Constellation createConstellation(@RequestBody Constellation constellation){
+		return constellationService.create(constellation);
+	}
+	@PutMapping("constellations/{id}")
+	public Constellation updateConstellation(@PathVariable("id") int id, @RequestBody Constellation constellation){
+		return constellationService.update(id, constellation);
+	}
+	@DeleteMapping(path = {"constellations/{id}"})
 	public void deletetar(@PathVariable("id") int id){
-		starService.delete(id);
+		constellationService.delete(id);
 	}
-	@PutMapping("stars/{id}/enable")
-	public void enableStar(@PathVariable("id") int id){
-		 starService.enable(id);
+	@PutMapping("constellations/{id}/enable")
+	public void enableConstellation(@PathVariable("id") int id){
+		 constellationService.enable(id);
 	}
 	
 }
