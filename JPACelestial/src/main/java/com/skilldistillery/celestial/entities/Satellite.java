@@ -27,11 +27,9 @@ public class Satellite {
 	@Column(name = "natural_object")
 	private Boolean natural;
 	private Boolean enabled;
-	@Column(name = "radius_km")
-	private Integer radius;
 	@Column(name = "orbital_radius_km")
 	private Integer orbitRadius;
-	@Column(name = "orbital_circumferance_km")
+	@Column(name = "orbital_circumference_km")
 	private Integer orbitCircumferance;
 	@Column(name = "create_date")
 	@CreationTimestamp
@@ -120,14 +118,6 @@ public class Satellite {
 		this.orbitCircumferance = orbitCircumference;
 	}
 
-	
-	public void setRadius(Integer radius) {
-		this.radius = radius;
-	}
-	
-	public Integer getRadius() {
-		return radius;
-	}
 	public Planet getStar() {
 		return planet;
 	}
@@ -136,6 +126,22 @@ public class Satellite {
 		this.planet = planet;
 	}
 	
+
+	public Boolean getNatural() {
+		return natural;
+	}
+
+	public void setNatural(Boolean natural) {
+		this.natural = natural;
+	}
+
+	public Planet getPlanet() {
+		return planet;
+	}
+
+	public void setPlanet(Planet planet) {
+		this.planet = planet;
+	}
 
 	@Override
 	public int hashCode() {
@@ -157,7 +163,7 @@ public class Satellite {
 	@Override
 	public String toString() {
 		return "Star [id=" + id + ", name=" + name + ", about=" + about + ", imageUrl=" + imageUrl + ", enabled="
-				+ enabled + ", declination=" + radius + ", orbitRadius=" + orbitRadius + ", orbitCircumferance="
+				+ enabled + ", orbitRadius=" + orbitRadius + ", orbitCircumferance="
 				+ orbitCircumferance + ", createDate=" + createDate + ", lastUpdate=" + lastUpdate + "]";
 	}
 

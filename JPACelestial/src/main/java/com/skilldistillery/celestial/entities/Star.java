@@ -1,6 +1,8 @@
 package com.skilldistillery.celestial.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Star {
@@ -47,11 +50,39 @@ public class Star {
 	@JoinColumn(name = "star_type_id")
 	private StarType starType;
 
+	@OneToMany(mappedBy = ("star"))
+	private List<Planet> planets;
 	
+
 
 	public Star() {
 	}
+	public List<Planet> getPlanets() {
+		return planets;
+	}
+	
+	public void setPlanets(List<Planet> planets) {
+		this.planets = planets;
+	}
 
+	public void addStar(Planet planet) {
+		if (planets == null) {
+			planets = new ArrayList<>();
+		}
+		if (!planets.contains(planet)) {
+			planets.add(planet);
+			planet.setStar(this);
+		}
+	}
+
+	public void removeStar(Planet planet) {
+		if (planets != null && planets.contains(planet)) {
+			planets.remove(planet);
+			planet.setStar(null);
+		}
+	}
+
+	
 	public int getId() {
 		return id;
 	}

@@ -4,7 +4,11 @@
 	
 	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+		<class>com.skilldistillery.celestial.entities.Constellation</class>
+		<class>com.skilldistillery.celestial.entities.Planet</class>
+		<class>com.skilldistillery.celestial.entities.Satellite</class>
 		<class>com.skilldistillery.celestial.entities.Star</class>
+		<class>com.skilldistillery.celestial.entities.StarType</class>
 		
 
 		<properties>

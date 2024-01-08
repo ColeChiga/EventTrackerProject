@@ -1,6 +1,8 @@
 package com.skilldistillery.celestial.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Planet {
@@ -29,7 +32,7 @@ public class Planet {
 	private Integer radius;
 	@Column(name = "orbital_radius_AU")
 	private Integer orbitRadius;
-	@Column(name = "orbital_circumferance_AU")
+	@Column(name = "orbital_circumference_AU")
 	private Integer orbitCircumferance;
 	@Column(name = "create_date")
 	@CreationTimestamp
@@ -42,6 +45,9 @@ public class Planet {
 	@ManyToOne
 	@JoinColumn(name = "star_id")
 	private Star star;
+	
+	@OneToMany(mappedBy = "planet")
+	private List<Satellite> satellites;
 
 	public Planet() {
 	}
@@ -130,10 +136,34 @@ public class Planet {
 		return star;
 	}
 	
+	public List<Satellite> getSatellite() {
+		return satellites;
+	}
+
+	public void setSatellites(List<Satellite> satellite) {
+		this.satellites = satellite;
+	}
+
 	public void setStar(Star star) {
 		this.star = star;
 	}
 	
+	public void addSatellite(Satellite satellite) {
+		if (satellites == null) {
+			satellites = new ArrayList<>(); 
+		}
+		if (!satellites.contains(satellite)) {
+			satellites.add(satellite);
+			satellite.setPlanet(this);
+		}
+	}
+
+	public void removeSatellite(Satellite satellite) {
+		if (satellites != null && satellites.contains(satellite)) {
+			satellites.remove(satellite);
+			satellite.setPlanet(null);
+		}
+	}
 
 	@Override
 	public int hashCode() {

@@ -12,11 +12,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-class starTest {
+class ConstellationTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Star star;
+	private Constellation constellation;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,35 +31,24 @@ class starTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		star = em.find(Star.class, 2);
+		constellation = em.find(Constellation.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		star=null;
+		constellation=null;
 	}
 
 	@Test
 	void test() {
-		assertNotNull(star);
-		assertEquals("Polaris", star.getName());
+		assertNotNull(constellation);
+		assertEquals("Ursa Major", constellation.getName());
 	}
 	@Test
-	void test_star_starType_relationship() {
-		assertNotNull(star);
-		assertEquals("Yellow Dwarf", star.getStarType().getName());
-	}
-	@Test
-	void test_star_constellation_relationship() {
-		assertNotNull(star);
-		assertEquals("Ursa Major", star.getConstellation().getName());
-	}
-	@Test
-	void test_star_planet_relationship() {
-		star=em.find(Star.class, 1);
-		assertNotNull(star.getPlanets());
-		assertEquals("Earth", star.getPlanets().get(0).getName());
+	void test_constellation_stare_relationships() {
+		assertNotNull(constellation.getStars());
+		assertEquals("Polaris", constellation.getStars().get(0).getName());
 	}
 
 }
