@@ -25,7 +25,7 @@ This same formula works for each entity, allowing individual entities to be acce
 
 ## Technologies Used
 
-	terminal, sublime, sql, mySQLWorkbench, mySQL, SpringToolSuite, eclipse, java, gradle, JPA, Spring Boot, REST, JUNIT Tests, MAMP, postman, Git. 
+Terminal, sublime, sql, mySQLWorkbench, mySQL, SpringToolSuite, eclipse, java, gradle, JPA, Spring Boot, REST, JUNIT Tests, MAMP, postman, Git. 
 
 ## Lessons Learned
 
