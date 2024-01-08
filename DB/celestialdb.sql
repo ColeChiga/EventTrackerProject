@@ -108,7 +108,10 @@ INSERT INTO star (id, name, about, image_url, enabled, right_ascension, declinat
             (2, 'Polaris', "Also known as the north star, Polaris can be found inline with the Earths rotational axis in the northern sky.", null, 1 ,null, null, 1, 1, null, null, '2024-01-06', '2024-01-06', null, null, null);
 
 INSERT INTO planet (id, name, about, image_url, enabled, star_id, mass, radius_km, orbital_radius_AU, orbital_circumference_AU, create_date, last_update)
-  VALUES (1, "Earth", "3rd planet from the sun, home to you, me, and everyone else.", null, 1, 1, null, 6371,1, 6.28, "2024-01-06", "2024-01-06");
+  VALUES (1, "Earth", "3rd planet from the sun, home to you, me, and everyone else.", null, 1, 1, null, 6371,1, 6.28, "2024-01-06", "2024-01-06"),
+         (2, "Mercury", "1st planet from the sun, very hot in the day and cold at night. It's orbit is shorter than it's day.", null, 1, 1, null, 3000, .45, 2.89, "2024-01-06", "2024-01-06"),
+         (3, "Venus", "2nd planet from the sun. Often considered Earth's sister planet due to its similar size. Venus rotates the opposite direction to the all other planets in the solar system.", null, 1, 1, null, 6000, 0.75, 4.98, "2024-01-06", "2024-01-06"),
+         (4, "Mars", "4th planet from the sun, Mars is often looked at as a potentially habitable planet for the future of humanity", null, 1, 1, null, 5000, 1.5, 8.56, "2024-01-06", "2024-01-06");
 
 INSERT INTO satellite (id, name, about, image_url, natural_object, enabled, planet_id, orbital_radius_km, orbital_circumference_km, create_date, last_update)
   VALUES (1, "Moon", "Natural body orbiting the Earth", null, 1, 1, 1, 384400, 2415256, "2024-01-06", "2024-01-06");
