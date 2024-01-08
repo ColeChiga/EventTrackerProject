@@ -30,6 +30,16 @@ public class Planet {
 	@Column(name = "image_url")
 	private String imageUrl;
 	private Boolean enabled;
+	
+	private Double mass;
+	public Double getMass() {
+		return mass;
+	}
+
+	public void setMass(Double mass) {
+		this.mass = mass;
+	}
+
 	@Column(name = "radius_km")
 	private Double radius;
 	@Column(name = "orbital_radius_AU")
@@ -138,8 +148,7 @@ public class Planet {
 		return star;
 	}
 	
-	@JsonIgnore
-	public List<Satellite> getSatellite() {
+	public List<Satellite> getSatellites() {
 		return satellites;
 	}
 	
@@ -188,8 +197,9 @@ public class Planet {
 	@Override
 	public String toString() {
 		return "Planet [id=" + id + ", name=" + name + ", about=" + about + ", imageUrl=" + imageUrl + ", enabled="
-				+ enabled + ", declination=" + radius + ", orbitRadius=" + orbitRadius + ", orbitCircumferance="
-				+ orbitCircumferance + ", createDate=" + createDate + ", lastUpdate=" + lastUpdate + "]";
+				+ enabled + ", mass=" + mass + ", radius=" + radius + ", orbitRadius=" + orbitRadius
+				+ ", orbitCircumferance=" + orbitCircumferance + ", createDate=" + createDate + ", lastUpdate="
+				+ lastUpdate + "]";
 	}
 
 }

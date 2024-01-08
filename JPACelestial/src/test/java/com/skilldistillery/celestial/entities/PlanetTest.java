@@ -53,7 +53,7 @@ class PlanetTest {
 	@Test
 	void test_planet_satellite() {
 		assertNotNull(planet);
-		assertEquals("Moon", planet.getSatellite().get(0).getName());
+		assertEquals("Moon", planet.getSatellites().get(0).getName());
 	}
 
 }

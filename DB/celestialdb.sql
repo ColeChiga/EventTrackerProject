@@ -34,14 +34,21 @@ CREATE TABLE star (
   about TEXT,
   image_url VARCHAR(2000),
   enabled TINYINT NOT NULL,
+  
   right_ascension VARCHAR(20),
   declination VARCHAR(20),
+  
   constellation_id INTEGER,
   star_type_id INTEGER,
   age_billion_years INTEGER,
   lifetime_billion_years INTEGER, 
   create_date DATETIME NOT NULL,
   last_update DATETIME NOT NULL,
+
+  solar_masses INTEGER,
+  luminosity INTEGER,
+  radius_km INTEGER,
+
   CONSTRAINT fk_star_constellation FOREIGN KEY (constellation_id) REFERENCES constellation (id),
   CONSTRAINT fk_star_star_type FOREIGN KEY (star_type_id) REFERENCES star_type (id)
 );
@@ -53,9 +60,13 @@ CREATE TABLE planet (
   image_url VARCHAR(2000),
   enabled TINYINT NOT NULL,
   star_id INTEGER,
+
+  mass INTEGER,
   radius_km INTEGER,
+
   orbital_radius_AU INTEGER,
   orbital_circumference_AU INTEGER,
+
   create_date DATETIME NOT NULL,
   last_update DATETIME NOT NULL,
   CONSTRAINT fk_planet_star FOREIGN KEY (star_id) REFERENCES star (id)
@@ -92,12 +103,12 @@ INSERT INTO star_type (id, name, about, image_url, enabled, create_date, last_up
 INSERT INTO constellation (id, name, about, image_url, enabled, create_date, last_update)
   VALUES (1, "Ursa Major", 'Also known as "The Great Bear", Ursa Major is the third largest constellation in the northern sky. Ursa Major contains the asterism known as "The Big Dipper" and is unique in that it holds large significance to many cultures around the world', null, 1, "2024-01-06", "2024-01-06");
 
-INSERT INTO star (id, name, about, image_url, enabled, right_ascension, declination, constellation_id, star_type_id, age_billion_years, lifetime_billion_years, create_date, last_update)
-	   VALUES (1, 'Sun', 'Also called "Sol" or "Helios", the Sun is the star at the center of our solar system.', null, 1, null, null, null, 1, 4.5, 10, '2024-01-06', '2024-01-06'),
-            (2, 'Polaris', "Also known as the north star, Polaris can be found inline with the Earths rotational axis in the northern sky.", null, 1 ,null, null, 1, 1, null, null, '2024-01-06', '2024-01-06');
+INSERT INTO star (id, name, about, image_url, enabled, right_ascension, declination, constellation_id, star_type_id, age_billion_years, lifetime_billion_years, create_date, last_update, solar_masses, luminosity, radius_km)
+	   VALUES (1, 'Sun', 'Also called "Sol" or "Helios", the Sun is the star at the center of our solar system.', null, 1, null, null, null, 1, 4.5, 10, '2024-01-06', '2024-01-06', null, null, null),
+            (2, 'Polaris', "Also known as the north star, Polaris can be found inline with the Earths rotational axis in the northern sky.", null, 1 ,null, null, 1, 1, null, null, '2024-01-06', '2024-01-06', null, null, null);
 
-INSERT INTO planet (id, name, about, image_url, enabled, star_id, radius_km, orbital_radius_AU, orbital_circumference_AU, create_date, last_update)
-  VALUES (1, "Earth", "3rd planet from the sun, home to you, me, and everyone else.", null, 1, 1, 6371,1, 6.28, "2024-01-06", "2024-01-06");
+INSERT INTO planet (id, name, about, image_url, enabled, star_id, mass, radius_km, orbital_radius_AU, orbital_circumference_AU, create_date, last_update)
+  VALUES (1, "Earth", "3rd planet from the sun, home to you, me, and everyone else.", null, 1, 1, null, 6371,1, 6.28, "2024-01-06", "2024-01-06");
 
 INSERT INTO satellite (id, name, about, image_url, natural_object, enabled, planet_id, orbital_radius_km, orbital_circumference_km, create_date, last_update)
   VALUES (1, "Moon", "Natural body orbiting the Earth", null, 1, 1, 1, 384400, 2415256, "2024-01-06", "2024-01-06");

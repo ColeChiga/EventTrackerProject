@@ -56,8 +56,33 @@ public class Star {
 	@JsonIgnore
 	private List<Planet> planets;
 	
+	@Column(name = "solar_masses")
+	private Double solarMasses;
+	
+	private Double luminosity;
+	
+	@Column(name = "radius_km")
+	private Double radius;
 
 
+	public Double getSolarMasses() {
+		return solarMasses;
+	}
+	public void setSolarMasses(Double solarMasses) {
+		this.solarMasses = solarMasses;
+	}
+	public Double getLuminosity() {
+		return luminosity;
+	}
+	public void setLuminosity(Double luminosity) {
+		this.luminosity = luminosity;
+	}
+	public Double getRadius() {
+		return radius;
+	}
+	public void setRadius(Double radius) {
+		this.radius = radius;
+	}
 	public Star() {
 	}
 	public List<Planet> getPlanets() {
@@ -210,7 +235,8 @@ public class Star {
 	public String toString() {
 		return "Star [id=" + id + ", name=" + name + ", about=" + about + ", imageUrl=" + imageUrl + ", enabled="
 				+ enabled + ", ascension=" + ascension + ", declination=" + declination + ", age=" + age + ", lifetime="
-				+ lifetime + ", createDate=" + createDate + ", lastUpdate=" + lastUpdate + "]";
+				+ lifetime + ", createDate=" + createDate + ", lastUpdate=" + lastUpdate + ", solarMasses="
+				+ solarMasses + ", luminosity=" + luminosity + ", radius=" + radius + "]";
 	}
 
 }

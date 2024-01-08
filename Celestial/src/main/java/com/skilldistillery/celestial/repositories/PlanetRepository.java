@@ -10,4 +10,6 @@ public interface PlanetRepository extends JpaRepository<Planet, Integer>{
 	List<Planet> searchByEnabled(boolean enabled);
 
 	Planet searchByIdAndEnabled(int id, boolean enabled);
+
+	List<Planet> searchByStarId(int id);
 }

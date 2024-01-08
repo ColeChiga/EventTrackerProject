@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.celestial.entities.Planet;
+import com.skilldistillery.celestial.entities.Satellite;
 import com.skilldistillery.celestial.repositories.PlanetRepository;
 
 @Service
@@ -78,6 +79,11 @@ public class PlanetServiceImpl implements PlanetService {
 	@Override
 	public Planet selectEnabledPlanetsById(int id) {
 		return planetRepo.searchByIdAndEnabled(id, true);
+	}
+
+	@Override
+	public List<Planet> listAllPlanetsForStar(int id) {
+		return planetRepo.searchByStarId(id);
 	}
 
 }

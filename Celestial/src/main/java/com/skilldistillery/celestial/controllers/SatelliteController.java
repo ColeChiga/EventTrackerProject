@@ -33,6 +33,16 @@ public class SatelliteController {
 		}
 		return satellites;
 	}
+	@GetMapping("planets/{id}/satellites")
+	public List<Satellite> findAllPlanetsForStars(@PathVariable("id") int id, HttpServletResponse resp) {
+		List<Satellite> satellites = satelliteService.listAllSatellitesForPlanet(id);
+		if (!satellites.isEmpty()) {
+			resp.setStatus(200);
+		} else {
+			resp.setStatus(404);
+		}
+		return satellites;
+	}
 
 	@GetMapping("admin/satellites")
 	public List<Satellite> findAllSatellites(HttpServletResponse resp) {

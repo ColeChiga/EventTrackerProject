@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.celestial.entities.Planet;
+import com.skilldistillery.celestial.entities.Satellite;
 import com.skilldistillery.celestial.services.PlanetService;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -66,6 +67,17 @@ public class PlanetController {
 			resp.setStatus(400);
 		}
 		return planet;
+	}
+	
+	@GetMapping("stars/{id}/planets")
+	public List<Planet> findAllPlanetsForStars(@PathVariable("id") int id, HttpServletResponse resp) {
+		List<Planet> planets = planetService.listAllPlanetsForStar(id);
+		if (!planets.isEmpty()) {
+			resp.setStatus(200);
+		} else {
+			resp.setStatus(404);
+		}
+		return planets;
 	}
 
 	@PostMapping(path = { "planets" })

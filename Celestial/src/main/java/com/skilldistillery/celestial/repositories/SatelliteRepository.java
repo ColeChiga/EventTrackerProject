@@ -10,4 +10,6 @@ public interface SatelliteRepository extends JpaRepository<Satellite, Integer>{
 	List<Satellite> searchByEnabled(boolean enabled);
 
 	Satellite searchByIdAndEnabled(int id, boolean b);
+
+	List<Satellite> searchByPlanetId(int id);
 }

@@ -86,5 +86,10 @@ public class SatelliteServiceImpl implements SatelliteService {
 		
 	}
 
+	@Override
+	public List<Satellite> listAllSatellitesForPlanet(int id) {
+		return satelliteRepo.searchByPlanetId(id);
+	}
+
 
 }

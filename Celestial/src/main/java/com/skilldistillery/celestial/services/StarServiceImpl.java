@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.celestial.entities.Planet;
 import com.skilldistillery.celestial.entities.Star;
 import com.skilldistillery.celestial.entities.Star;
 import com.skilldistillery.celestial.repositories.StarRepository;
@@ -82,6 +83,23 @@ public class StarServiceImpl implements StarService {
 
 		return optStar;
 
+	}
+
+	@Override
+	public List<Planet> listAllPlanetsForStar(int id) {
+		List<Planet> planets = starRepo.findById(id).get().getPlanets();
+		
+		return planets;
+	}
+
+	@Override
+	public List<Star> listAllStarsForStarType(int id) {
+		return starRepo.searchByStarTypeId(id);
+	}
+
+	@Override
+	public List<Star> listAllStarsForConstellation(int id) {
+		return starRepo.searchByConstellationId(id);
 	}
 
 }

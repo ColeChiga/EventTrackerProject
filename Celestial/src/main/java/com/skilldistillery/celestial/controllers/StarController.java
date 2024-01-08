@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.celestial.entities.Planet;
 import com.skilldistillery.celestial.entities.Star;
 import com.skilldistillery.celestial.services.StarService;
 
@@ -33,7 +34,28 @@ public class StarController {
 		}
 		return stars;
 	}
-
+	
+	@GetMapping("starTypes/{id}/stars")
+	public List<Star> findAllStarsForStarsTypes(@PathVariable("id") int id, HttpServletResponse resp) {
+		List<Star> stars = starService.listAllStarsForStarType(id);
+		if (!stars.isEmpty()) {
+			resp.setStatus(200);
+		} else {
+			resp.setStatus(404);
+		}
+		return stars;
+	}
+	@GetMapping("constellations/{id}/stars")
+	public List<Star> findAllStarsForConstellations(@PathVariable("id") int id, HttpServletResponse resp) {
+		List<Star> stars = starService.listAllStarsForConstellation(id);
+		if (!stars.isEmpty()) {
+			resp.setStatus(200);
+		} else {
+			resp.setStatus(404);
+		}
+		return stars;
+	}
+	
 	@GetMapping("admin/stars")
 	public List<Star> findAllStars(HttpServletResponse resp) {
 		List<Star> stars = starService.listAll();
