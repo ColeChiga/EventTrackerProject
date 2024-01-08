@@ -18,7 +18,7 @@ For each entity, you can see all columns, all enabled columns, individual select
 	GET: stars/{id} -see individual enabled stars
 	POST: stars -create new star
 	PUT: stars/{id} -update existing star
-	PUT: stars/{id}/enabled set enabled to true
+	PUT: stars/{id}/enabled -set enabled to true
 	DELETE: stars/{id} -set enabled to false
 
 This same formula works for each entity, allowing individual entities to be accessed and changed. The other entities can be accessed using "starTypes", "constellations", "planets", and "satellites".
