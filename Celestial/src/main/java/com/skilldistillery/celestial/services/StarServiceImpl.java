@@ -44,7 +44,11 @@ public class StarServiceImpl implements StarService {
 
 	@Override
 	public Star update(int id, Star star) {
-		if (starRepo.findById(id).isPresent()) {
+		Optional<Star> optStar=starRepo.findById(id);
+		if (optStar.isPresent()) {
+			Star getStar = optStar.get();
+			star.setCreateDate(getStar.getCreateDate());
+			
 			return starRepo.saveAndFlush(star);
 		} else {
 			return null;

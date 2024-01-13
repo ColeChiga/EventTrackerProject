@@ -94,7 +94,7 @@ public class StarController {
 		try {
 			star = starService.create(star);
 			System.out.println(star);
-			resp.setStatus(200);
+			resp.setStatus(201);
 		} catch (Exception e) {
 			resp.setStatus(400);
 			star = null;
