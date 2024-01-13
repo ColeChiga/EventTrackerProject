@@ -142,7 +142,7 @@ function singleStarPage(star) {
 //Create Star
 //********************************** */
 
-function loadStarTypeForForm() {
+function loadStarTypeForForm(id) {
 	let xhr = new XMLHttpRequest();
 	xhr.open('GET', 'api/starTypes')
 	xhr.onreadystatechange = function() {
@@ -150,15 +150,19 @@ function loadStarTypeForForm() {
 			if (xhr.status === 200) {
 				let starList = JSON.parse(xhr.responseText);
 				console.log(starList);
-				displayStarTypes(starList);
+				console.log(id);
+				if (id === undefined ){
+					id='starType';
+				}
+					displayStarTypes(starList, id);					
 			}
 		}
 	}
 	xhr.send();
 }
 
-function displayStarTypes(starList) {
-	let sel = document.getElementById('starType');
+function displayStarTypes(starList, id) {
+	let sel = document.getElementById(id);
 	let option = document.createElement('option');
 	option.value = -1;
 	option.textContent = "None";
@@ -238,6 +242,10 @@ function editStar(event) {
 	let star = document.editForm;
 	console.log(star.name.value);
 
+	let typeOfStar = {
+		id: star.starType.value
+	}
+
 	let editStar = {
 		id: star.id.value,
 		name: star.name.value,
@@ -251,6 +259,10 @@ function editStar(event) {
 		solarMasses: star.solarMasses.value,
 		luminosity: star.luminosity.value,
 		radius: star.radius.value,
+	}
+	console.log(typeOfStar.id);
+	if (typeOfStar.id != -1) {
+		editStar.starType = typeOfStar;
 	}
 	let xhr = new XMLHttpRequest();
 	xhr.open('PUT', 'api/stars/' + editStar.id);
@@ -333,7 +345,6 @@ function editForm(star) {
 	h1.value = star.age;
 	div1.appendChild(h1);
 
-
 	div1 = document.createElement('div');
 	div1.textContent = "Lifetime: ";
 	form.appendChild(div1);
@@ -387,6 +398,15 @@ function editForm(star) {
 	h1.name = "radius";
 	h1.value = star.radius;
 	div1.appendChild(h1);
+	div1 = document.createElement('div');
+	div1.textContent = "Star Type: ";
+	form.appendChild(div1);
+	h1 = document.createElement('select');
+	h1.id = "editStarType";
+	h1.name = "starType";
+	div1.appendChild(h1);
+	
+	loadStarTypeForForm('editStarType');
 
 	div1 = document.createElement('div');
 	form.appendChild(div1);
