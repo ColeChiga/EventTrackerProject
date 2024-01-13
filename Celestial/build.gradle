@@ -16,6 +16,13 @@ repositories {
 	mavenCentral()
 }
 
+war {
+  // Gradle will replace the variable archivesBaseName
+  // with our app name, as defined in settings.gradle
+  archiveFileName = "${archivesBaseName}.war"
+  destinationDirectory = file("../")     // Project workspace directory
+}
+
 dependencies {
 
 	implementation project(':JPACelestial')
