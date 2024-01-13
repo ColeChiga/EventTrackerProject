@@ -17,7 +17,7 @@ function init(){
 //Star List
 //********************************** */
 
-function loadStarList(){
+function loadStarList(star){
 	let xhr = new XMLHttpRequest();
 	xhr.open('GET', 'api/stars')
 	xhr.onreadystatechange = function(){
@@ -25,14 +25,14 @@ function loadStarList(){
 			if (xhr.status === 200){
 				let starList = JSON.parse(xhr.responseText);
 				console.log(starList);
-				displayStarList(starList);
+				displayStarList(starList, star);
 			}
 		}
 	}
 	xhr.send();
 }
 
-function displayStarList(starList){
+function displayStarList(starList, newStar){
  	let tbody = document.getElementById('starListTBody');
 		let lastClick = -1;
 	for (let star of starList){
@@ -53,6 +53,10 @@ function displayStarList(starList){
 			getStarDetails(star, lastClick);
 			lastClick=star.id;
 		});
+	}
+	
+	if(newStar){
+		console.log(star)
 	}
 }
 
@@ -129,7 +133,7 @@ function 	loadStarTypeForForm(){
 }
 
 function displayStarTypes(starList){
- 	let sel = document.getElementById('starType');
+ /*	let sel = document.getElementById('starType');
 		let option  = document.createElement('option');
 		option.value = null;
 		option.textContent = "None";
@@ -139,42 +143,53 @@ function displayStarTypes(starList){
 		option.value = starT.id;
 		option.textContent = starT.name;
 		sel.appendChild(option);
-	}
+	}*/
 }
 
 function createStar(e){
-	e.preventDefult();
-	let star = document.newStar();
+	
+	console.log("pre prevent default")
+	//.preventDefult();
+	console.log("post prevent default")
+
+	let star = document.newStar;
+	
+	
 	
 	let createStar = {
-			'name': star.name.value,
-			'about': star.about.value,
-			'image': star.imageUrl.value,
-			'age': star.age.value,
-			'lifetime': star.lifetime.value,
-			'ascention': star.ascension.value,
-			'declination': star.declination.value,
-			'solarMasses': star.solarMasses.value,
-			'luminosity': star.luminosity.value,
-			'radius': star.radiusradius.value,
-			'starType': star.starType.value
-	}
+			name: star.name.value,
+			about: star.about.value,
+			image: star.imageUrl.value,
+			enabled: true,
+			age: star.age.value,
+			lifetime: star.lifetime.value,
+			ascention: star.ascension.value,
+			declination: star.declination.value,
+			solarMasses: star.solarMasses.value,
+			luminosity: star.luminosity.value,
+			radius: star.radius.value,	
+	};
+	
+	console.log("post create star")
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open('POST', 'api/stars');
-	xhr.setRequestHeader("Content-type", "application/json")
+	console.log("post open")
+	xhr.setRequestHeader("Content-type", "application/json");
 	
 	xhr.onreadystatechange = function() {
 	if (xhr.readyState === 4) {
 			if (xhr.status === 201) {
 				// * On success, if a response was received parse the film data
 				//   and pass the film object to displayFilm().
-			loadStarList();
+			let newfilm = JSON.parse(xhr.responseText);
+				displayFilm(newfilm);
+			loadStarList(star);
 			}
 			else {
 				// * On failure, or if no response text was received, put "Film not found" 
 				//   in the filmData div.
-				console.error("POST request failed")
+				console.error("POST request failed");
 				console.error(xhr.status + ': ' + xhr.responseText);
 			}
 		}

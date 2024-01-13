@@ -25,18 +25,18 @@
 	</div>
 	
 	<div id="createStar">
-		<form name = "newStar">
+		<form  name = "newStar">
 			*Name: <input type="text" name="name" placeholder="name" required="required">
 			<br>About:<textarea name="about" placeholder="about"></textarea>
 			<br>Image: <input type="text" name="imageUrl" placeholder="image url">
-			<br>Age: <input type="text" name="age" placeholder="age"> billion years
-			<br>Lifetime: <input type="text" name="lifetime" placeholder="lifetime"> billion years
-			<br>Right Ascention: <input type="text" name="ascension" placeholder="ascension"> degrees
-			<br>Declination: <input type="text" name="declination" placeholder="declination"> degrees
-			<br>Solar Masses: <input type="text" name="solarMasses" placeholder="solar masses"> SMU
-			<br>Luminosity: <input type="text" name="luminosity" placeholder="luminosity"> Solar luminosity (L⊙)
-			<br>Radius: <input type="text" name="radius" placeholder="radius"> km
-			<br>Star Type: <select id="starType" name="starType"></select>
+			<br>Age: <input type="number" name="age" placeholder="age" min="0" value="0" step="0.01"> billion years
+			<br>Lifetime: <input type="number" name="lifetime" placeholder="lifetime" min="0" value="0"  step="0.01"> billion years
+			<br>Right Ascention: <input type="number" name="ascension" placeholder="ascension" min="0" value="0" step="0.01"> degrees
+			<br>Declination: <input type="number" name="declination" placeholder="declination" min="0" value="0" step="0.01"> degrees
+			<br>Solar Masses: <input type="number" name="solarMasses" placeholder="solar masses" min="0" value="0" step="0.01"> Solar mass (M⊙)
+			<br>Luminosity: <input type="number" name="luminosity" placeholder="luminosity" min="0" value="0" step="0.01"> Solar luminosity (L⊙)
+			<br>Radius: <input type="number" name="radius" placeholder="radius" min="0" value="0" step="0.01"> Solar radius (R⊙)
+			<!--<br>Star Type: <select id="starType" name="starType"></select>-->
 			<br><input type="submit" name="submit" value="Create Star">
 		</form>
 	</div>

@@ -93,7 +93,7 @@ public class StarController {
 	public Star createStar(@RequestBody Star star, HttpServletResponse resp) {
 		try {
 			star = starService.create(star);
-
+			System.out.println(star);
 			resp.setStatus(200);
 		} catch (Exception e) {
 			resp.setStatus(400);
