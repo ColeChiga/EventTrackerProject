@@ -10,6 +10,7 @@ function init() {
 
 	loadStarList();
 	loadStarTypeForForm();
+	loadConstellationForForm();
 	document.newStar.submit.addEventListener('click', createStar);
 }
 
@@ -101,6 +102,12 @@ function getStarDetails(star) {
 		li.textContent = "Star Type: " + star.starType.name;
 		ul.appendChild(li);
 	}
+	
+	if(star.constellation != null){
+		li = document.createElement('li')
+		li.textContent = "Constellation: " + star.constellation.name;
+		ul.appendChild(li);
+	}
 
 	let edit = document.createElement('button');
 	edit.textContent = "Edit";
@@ -175,34 +182,46 @@ function displayStarTypes(starList, id) {
 	}
 }
 
+function loadConstellationForForm(id) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', 'api/constellations')
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200) {
+				let constellation = JSON.parse(xhr.responseText);
+				console.log(constellation);
+				console.log(id);
+				if (id === undefined ){
+					id='constellation';
+				}
+					displayConstellation(constellation, id);					
+			}
+		}
+	}
+	xhr.send();
+}
+
+function displayConstellation(constellation, id) {
+	let sel = document.getElementById(id);
+	let option = document.createElement('option');
+	option.value = -1;
+	option.textContent = "None";
+	sel.appendChild(option);
+	for (let con of constellation) {
+		let option = document.createElement('option');
+		option.value = con.id;
+		option.textContent = con.name;
+		sel.appendChild(option);
+	}
+}
+
 function createStar(event) {
 
 	event.preventDefault();
 
 	let star = document.newStar;
 
-
-	let typeOfStar = {
-		id: star.starType.value
-	}
-
-
-	let createStar = {
-		name: star.name.value,
-		about: star.about.value,
-		image: star.imageUrl.value,
-		enabled: true,
-		age: star.age.value,
-		lifetime: star.lifetime.value,
-		ascension: star.ascension.value,
-		declination: star.declination.value,
-		solarMasses: star.solarMasses.value,
-		luminosity: star.luminosity.value,
-		radius: star.radius.value,
-	};
-	if (typeOfStar.id != -1) {
-		createStar.starType = typeOfStar;
-	}
+	let createStar = createStarObject(star);
 
 
 	let xhr = new XMLHttpRequest();
@@ -232,22 +251,17 @@ function createStar(event) {
 	xhr.send(userObjectJson);
 }
 
-
-//********************************** */
-//Edit Star
-//********************************** */
-
-function editStar(event) {
-	event.preventDefault()
-	let star = document.editForm;
-	console.log(star.name.value);
-
+function createStarObject(star){
+	
 	let typeOfStar = {
 		id: star.starType.value
 	}
-
-	let editStar = {
-		id: star.id.value,
+	let constellation = {
+		id: star.constellation.value
+	}
+	
+	let starObject = {
+		
 		name: star.name.value,
 		about: star.about.value,
 		image: star.imageUrl.value,
@@ -260,10 +274,34 @@ function editStar(event) {
 		luminosity: star.luminosity.value,
 		radius: star.radius.value,
 	}
+	
 	console.log(typeOfStar.id);
 	if (typeOfStar.id != -1) {
-		editStar.starType = typeOfStar;
+		starObject.starType = typeOfStar;
 	}
+	if (constellation.id != -1) {
+		starObject.constellation = constellation;
+	}
+	
+	console.log(star.id.value);
+	if (star.id){
+		starObject.id = star.id.value;
+	}
+	
+	return starObject;
+}
+
+//********************************** */
+//Edit Star
+//********************************** */
+
+function editStar(event) {
+	event.preventDefault()
+	let star = document.editForm;
+	console.log(star.name.value);
+
+	let editStar = createStarObject(star);
+	
 	let xhr = new XMLHttpRequest();
 	xhr.open('PUT', 'api/stars/' + editStar.id);
 	console.log("put open")
@@ -307,7 +345,7 @@ function editForm(star) {
 	h1.type = "number";
 	h1.name = "id";
 	h1.value = star.id;
-	h1.hidden = "hidden"
+	h1.hidden = "hidden"	
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -343,6 +381,8 @@ function editForm(star) {
 	h1.type = "number";
 	h1.name = "age";
 	h1.value = star.age;
+	h1.min = '0';
+	h1.step='0.01';
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -352,6 +392,8 @@ function editForm(star) {
 	h1.type = "number";
 	h1.name = "lifetime";
 	h1.value = star.lifetime;
+	h1.min = '0';
+	h1.step='0.01';
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -361,6 +403,8 @@ function editForm(star) {
 	h1.type = "number";
 	h1.name = "ascension";
 	h1.value = star.ascension;
+	h1.min = '0';
+	h1.step='0.01';
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -370,6 +414,8 @@ function editForm(star) {
 	h1.type = "number";
 	h1.name = "declination";
 	h1.value = star.declination;
+	h1.min = '0';
+	h1.step='0.01';
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -379,6 +425,8 @@ function editForm(star) {
 	h1.type = "number";
 	h1.name = "solarMasses";
 	h1.value = star.solarMasses;
+	h1.min = '0';
+	h1.step='0.01';
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -388,6 +436,8 @@ function editForm(star) {
 	h1.type = "number";
 	h1.name = "luminosity";
 	h1.value = star.luminosity;
+	h1.min = '0';
+	h1.step='0.01';
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -397,7 +447,10 @@ function editForm(star) {
 	h1.type = "number";
 	h1.name = "radius";
 	h1.value = star.radius;
+	h1.min = '0';
+	h1.step='0.01';
 	div1.appendChild(h1);
+	
 	div1 = document.createElement('div');
 	div1.textContent = "Star Type: ";
 	form.appendChild(div1);
@@ -405,8 +458,16 @@ function editForm(star) {
 	h1.id = "editStarType";
 	h1.name = "starType";
 	div1.appendChild(h1);
-	
 	loadStarTypeForForm('editStarType');
+	
+	div1 = document.createElement('div');
+	div1.textContent = "Constellation: ";
+	form.appendChild(div1);
+	h1 = document.createElement('select');
+	h1.id = "editConstellation";
+	h1.name = "constellation";
+	div1.appendChild(h1);
+	loadConstellationForForm('editConstellation');
 
 	div1 = document.createElement('div');
 	form.appendChild(div1);
