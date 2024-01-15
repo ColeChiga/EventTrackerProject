@@ -83,7 +83,7 @@ function getStarDetails(star) {
 	h1.appendChild(ul);
 	
 	let li = document.createElement('li');
-	if (star.age == 0) {
+	if (star.age === null) {
 		li.textContent = "Age: unknown";		
 	} else{
 	li.textContent = "Age: " + star.age + ' billion years';
@@ -91,12 +91,19 @@ function getStarDetails(star) {
 	ul.appendChild(li);
 	
 	li = document.createElement('li');
-	if (star.lifetime == 0) {
+	if (star.lifetime === null) {
 		li.textContent = "Lifetime: unknown";		
 	} else{
 	li.textContent = "Lifetime: " + star.lifetime + ' billion years';
 	}
 	ul.appendChild(li);
+	
+	
+	if (star.constellation != null) {
+		li = document.createElement('li')
+		li.textContent = "Constellation: " + star.constellation.name;
+		ul.appendChild(li);
+	};
 	
 	if(star.id != 1){
 	li = document.createElement('li');
@@ -116,6 +123,12 @@ function getStarDetails(star) {
 	ul.appendChild(li);
 	}
 	
+	if (star.starType.name != null) {
+		li = document.createElement('li')
+		li.textContent = "Star Type: " + star.starType.name;
+		ul.appendChild(li);
+	}
+	
 	li = document.createElement('li');
 	if (star.solarMasses == 0) {
 		li.textContent = "Solar Masses: unknown";		
@@ -125,7 +138,7 @@ function getStarDetails(star) {
 	ul.appendChild(li);
 	
 	li = document.createElement('li');
-	if (star.luminosity == 0 && star.starType.name != 'Red Giant') {
+	if (star.luminosity == 0 && star.starType.name != 'Black Hole') {
 		li.textContent = "Luminosity: unknown";		
 	} else{
 	li.textContent = "Luminosity: " + star.luminosity + ' L⊙';
@@ -139,18 +152,6 @@ function getStarDetails(star) {
 	li.textContent = "radius: " + star.radius + ' R⊙';
 	}
 	ul.appendChild(li);
-
-	if (star.starType.name != null) {
-		li = document.createElement('li')
-		li.textContent = "Star Type: " + star.starType.name;
-		ul.appendChild(li);
-	}
-
-	if (star.constellation != null) {
-		li = document.createElement('li')
-		li.textContent = "Constellation: " + star.constellation.name;
-		ul.appendChild(li);
-	}
 
 	if (star.luminosity > 0 && star.radius > 0) {
 		li = document.createElement('li')
@@ -177,11 +178,12 @@ function getStarDetails(star) {
 		console.log(event.target);
 		singleStarPage(star);
 	});*/
+	
 	edit.addEventListener('click', function(event) {
 		event.preventDefault();
 		editForm(star);
-
 	});
+	
 	del.addEventListener('click', function(event) {
 		event.preventDefault;
 		console.log(event.target);
@@ -199,7 +201,6 @@ function singleStarPage(star) {
 	console.log("Single Star Page");
 	//	window.location.href = "singleStar/"+star.id;
 }
-
 
 //********************************** */
 //Create Star
@@ -583,7 +584,6 @@ function deleteStar(event, star) {
 
 	xhr.send();
 }
-
 
 //********************************** */
 //data aggregation Star

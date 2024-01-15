@@ -61,7 +61,6 @@ public class Star {
 	
 	private Double luminosity;
 	
-	@Column(name = "radius_km")
 	private Double radius;
 
 
