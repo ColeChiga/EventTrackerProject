@@ -61,6 +61,12 @@ function displayStarList(starList, newStar) {
 }
 
 function getStarDetails(star) {
+	console.log(star.starType)
+	if (star.starType === null){
+		star.starType ={
+			name : null
+		}
+	}
 	console.log("getting details for star " + star.id);
 	let starDiv = document.getElementById('displayStar');
 	starDiv.replaceChildren();
@@ -75,37 +81,87 @@ function getStarDetails(star) {
 	let ul = document.createElement('ul');
 	ul.id = "starUL";
 	h1.appendChild(ul);
+	
 	let li = document.createElement('li');
-	li.textContent = "age: " + star.age;
+	if (star.age == 0) {
+		li.textContent = "Age: unknown";		
+	} else{
+	li.textContent = "Age: " + star.age + ' billion years';
+	}
 	ul.appendChild(li);
-	li = document.createElement('li')
-	li.textContent = "lifetime: " + star.lifetime;
+	
+	li = document.createElement('li');
+	if (star.lifetime == 0) {
+		li.textContent = "Lifetime: unknown";		
+	} else{
+	li.textContent = "Lifetime: " + star.lifetime + ' billion years';
+	}
 	ul.appendChild(li);
-	li = document.createElement('li')
-	li.textContent = "Right Ascension: " + star.ascension;
+	
+	if(star.id != 1){
+	li = document.createElement('li');
+	if (star.ascension == 0) {
+		li.textContent = "Right Ascension: unknown";		
+	} else{
+	li.textContent = "Right Ascension: " + star.ascension + ' degrees';
+	}
 	ul.appendChild(li);
-	li = document.createElement('li')
-	li.textContent = "Declination: " + star.declination;
+	
+	li = document.createElement('li');
+	if (star.declination == 0) {
+		li.textContent = "Declination: unknown";		
+	} else{
+	li.textContent = "Declination: " + star.declination + ' degrees';
+	}
 	ul.appendChild(li);
-	li = document.createElement('li')
-	li.textContent = "Solar Masses: " + star.solarMasses;
+	}
+	
+	li = document.createElement('li');
+	if (star.solarMasses == 0) {
+		li.textContent = "Solar Masses: unknown";		
+	} else{
+	li.textContent = "Solar Masses: " + star.solarMasses + ' M⊙';
+	}
 	ul.appendChild(li);
-	li = document.createElement('li')
-	li.textContent = "Luminosity: " + star.luminosity;
+	
+	li = document.createElement('li');
+	if (star.luminosity == 0 && star.starType.name != 'Red Giant') {
+		li.textContent = "Luminosity: unknown";		
+	} else{
+	li.textContent = "Luminosity: " + star.luminosity + ' L⊙';
+	}
 	ul.appendChild(li);
-	li = document.createElement('li')
-	li.textContent = "radius: " + star.radius;
+	
+	li = document.createElement('li');
+	if (star.radius == 0) {
+		li.textContent = "Radius: unknown";		
+	} else{
+	li.textContent = "radius: " + star.radius + ' R⊙';
+	}
 	ul.appendChild(li);
 
-	if (star.starType != null) {
+	if (star.starType.name != null) {
 		li = document.createElement('li')
 		li.textContent = "Star Type: " + star.starType.name;
 		ul.appendChild(li);
 	}
-	
-	if(star.constellation != null){
+
+	if (star.constellation != null) {
 		li = document.createElement('li')
 		li.textContent = "Constellation: " + star.constellation.name;
+		ul.appendChild(li);
+	}
+
+	if (star.luminosity > 0 && star.radius > 0) {
+		li = document.createElement('li')
+		li.textContent = "Temperature: " + calculateTemp(star) + " K";
+		ul.appendChild(li);
+	}
+
+	if (star.luminosity > 0) {
+		li = document.createElement('li')
+		let goldilocks = calcGoldilocksZone(star)
+		li.textContent = "Goldilocks Zone between: " + goldilocks[0] + " AU and " + goldilocks[1] + " AU";
 		ul.appendChild(li);
 	}
 
@@ -131,8 +187,8 @@ function getStarDetails(star) {
 		console.log(event.target);
 		console.log(star.id);
 		console.log("delete button pressed");
-		let starName = "" +star.name
-		if (confirm("Are You Sure You want to delete " + starName)){
+		let starName = "" + star.name
+		if (confirm("Are You Sure You want to delete " + starName)) {
 			deleteStar(event, star)
 		}
 
@@ -158,10 +214,10 @@ function loadStarTypeForForm(id) {
 				let starList = JSON.parse(xhr.responseText);
 				console.log(starList);
 				console.log(id);
-				if (id === undefined ){
-					id='starType';
+				if (id === undefined) {
+					id = 'starType';
 				}
-					displayStarTypes(starList, id);					
+				displayStarTypes(starList, id);
 			}
 		}
 	}
@@ -191,10 +247,10 @@ function loadConstellationForForm(id) {
 				let constellation = JSON.parse(xhr.responseText);
 				console.log(constellation);
 				console.log(id);
-				if (id === undefined ){
-					id='constellation';
+				if (id === undefined) {
+					id = 'constellation';
 				}
-					displayConstellation(constellation, id);					
+				displayConstellation(constellation, id);
 			}
 		}
 	}
@@ -251,17 +307,17 @@ function createStar(event) {
 	xhr.send(userObjectJson);
 }
 
-function createStarObject(star){
-	
+function createStarObject(star) {
+
 	let typeOfStar = {
 		id: star.starType.value
 	}
 	let constellation = {
 		id: star.constellation.value
 	}
-	
+
 	let starObject = {
-		
+
 		name: star.name.value,
 		about: star.about.value,
 		image: star.imageUrl.value,
@@ -274,7 +330,7 @@ function createStarObject(star){
 		luminosity: star.luminosity.value,
 		radius: star.radius.value,
 	}
-	
+
 	console.log(typeOfStar.id);
 	if (typeOfStar.id != -1) {
 		starObject.starType = typeOfStar;
@@ -282,12 +338,12 @@ function createStarObject(star){
 	if (constellation.id != -1) {
 		starObject.constellation = constellation;
 	}
-	
+
 	console.log(star.id.value);
-	if (star.id){
+	if (star.id) {
 		starObject.id = star.id.value;
 	}
-	
+
 	return starObject;
 }
 
@@ -301,7 +357,7 @@ function editStar(event) {
 	console.log(star.name.value);
 
 	let editStar = createStarObject(star);
-	
+
 	let xhr = new XMLHttpRequest();
 	xhr.open('PUT', 'api/stars/' + editStar.id);
 	console.log("put open")
@@ -345,7 +401,7 @@ function editForm(star) {
 	h1.type = "number";
 	h1.name = "id";
 	h1.value = star.id;
-	h1.hidden = "hidden"	
+	h1.hidden = "hidden"
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -382,7 +438,7 @@ function editForm(star) {
 	h1.name = "age";
 	h1.value = star.age;
 	h1.min = '0';
-	h1.step='0.01';
+	h1.step = '0.01';
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -393,7 +449,7 @@ function editForm(star) {
 	h1.name = "lifetime";
 	h1.value = star.lifetime;
 	h1.min = '0';
-	h1.step='0.01';
+	h1.step = '0.01';
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -404,7 +460,7 @@ function editForm(star) {
 	h1.name = "ascension";
 	h1.value = star.ascension;
 	h1.min = '0';
-	h1.step='0.01';
+	h1.step = '0.01';
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -415,7 +471,7 @@ function editForm(star) {
 	h1.name = "declination";
 	h1.value = star.declination;
 	h1.min = '0';
-	h1.step='0.01';
+	h1.step = '0.01';
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -426,7 +482,7 @@ function editForm(star) {
 	h1.name = "solarMasses";
 	h1.value = star.solarMasses;
 	h1.min = '0';
-	h1.step='0.01';
+	h1.step = '0.01';
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -437,7 +493,7 @@ function editForm(star) {
 	h1.name = "luminosity";
 	h1.value = star.luminosity;
 	h1.min = '0';
-	h1.step='0.01';
+	h1.step = '0.01';
 	div1.appendChild(h1);
 
 	div1 = document.createElement('div');
@@ -448,9 +504,9 @@ function editForm(star) {
 	h1.name = "radius";
 	h1.value = star.radius;
 	h1.min = '0';
-	h1.step='0.01';
+	h1.step = '0.01';
 	div1.appendChild(h1);
-	
+
 	div1 = document.createElement('div');
 	div1.textContent = "Star Type: ";
 	form.appendChild(div1);
@@ -459,7 +515,7 @@ function editForm(star) {
 	h1.name = "starType";
 	div1.appendChild(h1);
 	loadStarTypeForForm('editStarType');
-	
+
 	div1 = document.createElement('div');
 	div1.textContent = "Constellation: ";
 	form.appendChild(div1);
@@ -496,10 +552,10 @@ function editForm(star) {
 
 function deleteStar(event, star) {
 	event.preventDefault()
-	
+
 	console.log(star.id);
 
-	
+
 	let xhr = new XMLHttpRequest();
 	xhr.open('DELETE', 'api/stars/' + star.id);
 	console.log("delete open")
@@ -511,7 +567,7 @@ function deleteStar(event, star) {
 				// * On success, if a response was received parse the film data
 				//   and pass the film object to displayFilm().
 				console.log("DELETE request success");
-				
+
 				let starDiv = document.getElementById('displayStar');
 				starDiv.replaceChildren();
 				loadStarList();
@@ -529,7 +585,30 @@ function deleteStar(event, star) {
 }
 
 
+//********************************** */
+//data aggregation Star
+//********************************** */
 
+function calculateTemp(star) {
+	let L = star.luminosity * 3.827 * (10 ** 26)
+	console.log("luminosity " + L);
+	const pi4o = 4 * 3.14 * 5.67 * Math.pow(10, -8);
+	console.log("temp constant " + pi4o);
+	let R = star.radius * (6.957 * 10 ** 8);
+	console.log("radius convert " + R);
+	let T = (L / (pi4o * ((R) ** 2))) ** (1 / 4);
+	console.log("temp " + T);
+	return T.toFixed(0);
+};
+
+function calcGoldilocksZone(star) {
+	let GLZ = [];
+	GLZ[0] = (0.95 * Math.sqrt(star.luminosity)).toFixed(2);
+	GLZ[1] = (1.37 * Math.sqrt(star.luminosity)).toFixed(2);
+	
+
+	return GLZ;
+};
 
 
 
