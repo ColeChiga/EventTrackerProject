@@ -1,25 +1,36 @@
-# EventTrackerProject part 1
+# EventTrackerProject
 
 ## About
 
 The event tracker project is a project designed to test someones understanding of building a full stack application using Java, java script, sql, and Spring Boot.
 
+With my program, you are meant to explore the cosmos, with information about stars, star types, constillations, planets, and satellites. At this point in the project, the database is only loaded with a few entries, but the user can use postman to create and experiment with new entries. 
+
 In part 1 of this project, we were tasked with building a database and creating the entities, repositories, services, and controllers, to create the bones of a functional application. We also needed to test our entities using junit tests and our boot project using postmap.
 
-With my program, you are meant to explore the cosmos, with information about stars, star types, constillations, planets, and satellites. At this point in the project, the database is only loaded with a few entries, but the user can use postman to create and experiment with new entries. 
+For part 2 of the project, we used Javascript on a web application to create a displays using XMLHttpRequests to access the data created in part 1, including sending GET/POST/PUT/DELETE. We needed to parse through our JSON responses with Javascript as well as build an HTML file. Another feature we needed to implement was data aggregation. In this part, I implemented
+a function to calculate the temperature and Goldilocks Zones of stars using the known information about them.
+
 
 ## Postman Queries:
 
 For each entity, you can see all columns, all enabled columns, individual selections (by their Id), You can create new, update, delete (switch enabled to false), and re-enable disabled entities. to do this, you use the following on postmap:
 
-	GET: stars -see all enabled stars
-	GET: admin/stars -see all stars
-	GET: admin/stars/{id} -see individual stars
-	GET: stars/{id} -see individual enabled stars
-	POST: stars -create new star
-	PUT: stars/{id} -update existing star
-	PUT: stars/{id}/enabled -set enabled to true
-	DELETE: stars/{id} -set enabled to false
+
+| HTTP Verb | URI               | Request Body | Response Body | Status Codes | 
+|-----------|-------------------|--------------|---------------|---------|
+| GET 		| `/api/stars`		|     		   | List all enabled stars | 200, 404 |
+| GET 		| `/api/admin/stars`	| 			   | List all stars| 200, 404 |
+| GET 		| `/api/admin/stars/{id}`| 		   | show individual stars| 200, 400 |
+| GET 		| `/api/stars/{id}`	|			   | show individual enabled stars| 200, 400 |
+| POST 		| `/api/stars`		| JSON of a new star entity | create new star| 201, 400 |
+| PUT 		| `/api/stars/{id}`	| JSON of an updated star entity | update existing star| 200, 400 |
+| PUT 		| `/api/stars/{id}/enabled`|		 	   | set enabled to true| 200, 400 |
+| DELETE 	| `/api/stars/{id}`	| 			   | set enabled to false| 200, 400 |
+
+
+
+
 
 This same formula works for each entity, allowing individual entities to be accessed and changed. The other entities can be accessed using "starTypes", "constellations", "planets", and "satellites".
 
