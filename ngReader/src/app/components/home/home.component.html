@@ -1,0 +1,17 @@
+<h1>Celestial</h1>
+
+<table class="table table-dark table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>About</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let star of stars">
+      <td>{{star.name}}</td>
+      <td>{{star.about}}</td>
+    </tr>
+  </tbody>
+</table>
+

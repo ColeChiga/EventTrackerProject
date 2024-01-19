@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SatelliteService {
+  private url = environment.baseUrl + "api/starTypes";
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+
+   }
 }

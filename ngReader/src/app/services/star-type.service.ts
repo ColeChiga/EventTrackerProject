@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 })
 export class StarTypeService {
 
-  private url = environment.baseUrl + "pi/stars";
+  private url = environment.baseUrl + "api/starTypes";
 
   constructor(private http: HttpClient) {
 
