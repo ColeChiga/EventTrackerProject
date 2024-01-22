@@ -1,3 +1,4 @@
+import { Satellite } from "./satellite";
 import { Star } from "./star";
 
 export class Planet {
@@ -5,12 +6,12 @@ export class Planet {
   name:string;
   about:string;
   imageUrl:string;
-  age:string;
-  lifetime:string;
-  star:Star[]|null;
+  mass:string;
+  orbitRadius:number;
+  orbitCircumferance:number;
+  star:Star|null;
   enabled:boolean;
-  solarMasses:number;
-  luminosity:number;
+  satellites:Satellite[];
   radius:number;
 
 constructor(
@@ -18,23 +19,23 @@ constructor(
   name:string='',
   about:string='',
   imageUrl:string='',
-  age:string='',
-  lifetime:string='',
-  star:Star[]|null,
-  solarMasses:number=0,
-  enabled:boolean,
-  luminosity:number=0,
+  mass:string='',
+  orbitalRadius:number=0,
+  orbitalCircumferance:number=0,
+  star:Star|null=null,
+  satellites:Satellite[]=[],
+  enabled:boolean=false,
   radius:number=0
 ){
   this.id=id;
   this.name=name;
   this.about=about;
   this.imageUrl=imageUrl;
-  this.age=age;
-  this.lifetime=lifetime;
+  this.mass=mass;
+  this.orbitRadius=orbitalRadius;
+  this.orbitCircumferance=orbitalCircumferance;
   this.star=star;
-  this.solarMasses=solarMasses;
-  this.luminosity=luminosity;
+  this.satellites=satellites;
   this.radius= radius;
   this.enabled=enabled;
 }

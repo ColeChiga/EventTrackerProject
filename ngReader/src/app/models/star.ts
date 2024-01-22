@@ -8,6 +8,8 @@ export class Star {
   imageUrl:string;
   age:string;
   lifetime:string;
+  ascension:string;
+  declination:string;
   constellation:Constellation|null;
   starType:StarType|null;
   planets:Planet[]|null;
@@ -23,11 +25,13 @@ constructor(
   imageUrl:string='',
   age:string='',
   lifetime:string='',
-  constellation:Constellation|null,
-  starType:StarType|null,
-  planets:Planet[]|null,
+  ascension:string="",
+  declination:string="",
+  constellation:Constellation|null = null,
+  starType:StarType|null = null,
+  planets:Planet[]|null = null,
   solarMasses:number=0,
-  enabled:boolean,
+  enabled:boolean = false,
   luminosity:number=0,
   radius:number=0
 ){
@@ -37,6 +41,8 @@ constructor(
   this.imageUrl=imageUrl;
   this.age=age;
   this.lifetime=lifetime;
+  this.ascension=ascension;
+  this.declination=declination;
   this.constellation=constellation;
   this.starType=starType;
   this.planets=planets;

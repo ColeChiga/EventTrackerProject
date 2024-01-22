@@ -1,0 +1,156 @@
+<h1>StarTypes</h1>
+
+<div *ngIf="!selected && !newStarType">
+  <div class="input-group mb-3">
+    <button class="btn btn-outline-light" (click)="starTypetCreate()">
+      Create StarType
+    </button>
+  </div>
+
+  <!-- ***************************************************** -->
+  <!-- show table -->
+  <!-- ***************************************************** -->
+
+  <table class="table table-dark table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>About</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of starTypes">
+        <td (click)="selected = item">{{ item.name }}</td>
+        <td (click)="selected = item">{{ item.about }}</td>
+        <td>
+          <button
+            class="btn btn-outline-danger"
+            (click)="deleteStarType(item.id)"
+          >
+            X
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ***************************************************** -->
+<!-- show individual StarType -->
+<!-- ***************************************************** -->
+
+<div *ngIf="selected && !editStarType">
+  <div class="input-group mb-3">
+    <button class="btn btn-outline-light" (click)="selected = null">
+      Go Back
+    </button>
+    <button class="btn btn-outline-light" (click)="starTypeEdit()">
+      Edit StarType
+    </button>
+  </div>
+  <h2>{{ selected.name }}</h2>
+  <h2>{{ selected.about }}</h2>
+
+  <ul  *ngIf="selected.stars"> Stars:>
+    <li *ngFor="let star of selected.stars">
+      <a style="color: white" [href]="'#/home/' + star.id">
+        {{ star.name }}
+      </a>
+    </li>
+  </ul>
+  <img [src]="selected.imageUrl" width="250" height="250" />
+</div>
+
+<!-- ***************************************************** -->
+<!-- edit StarType -->
+<!-- ***************************************************** -->
+
+<form *ngIf="editStarType">
+  <div class="input-group mb-3">
+    <span class="input-group-text">Name:</span
+    ><input
+      class="form-control"
+      type="text"
+      name="name"
+      [(ngModel)]="editStarType.name"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">About:</span
+    ><textarea
+      class="form-control"
+      name="about"
+      [(ngModel)]="editStarType.about"
+    ></textarea>
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">Image:</span
+    ><input
+      class="form-control"
+      type="text"
+      name="img"
+      [(ngModel)]="editStarType.imageUrl"
+    />
+  </div>
+
+  <div class="input-group mb-3">
+    <button
+      class="btn btn-outline-light"
+      (click)="finishEdit(editStarType.id, editStarType)"
+    >
+      Save
+    </button>
+    <button class="btn btn-outline-light" (click)="editStarType = null">
+      Cancel
+    </button>
+    <button
+      class="btn btn-outline-light"
+      *ngIf="selected"
+      (click)="selected = null; editStarType = null"
+    >
+      Show Table
+    </button>
+  </div>
+</form>
+<!-- ***************************************************** -->
+<!-- new StarType -->
+<!-- ***************************************************** -->
+
+<form *ngIf="newStarType">
+  <div class="input-group mb-3">
+    <span class="input-group-text">Name:</span
+    ><input
+      class="form-control"
+      type="text"
+      name="name"
+      [(ngModel)]="newStarType.name"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">About:</span
+    ><textarea
+      class="form-control"
+      name="about"
+      [(ngModel)]="newStarType.about"
+    ></textarea>
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">Image:</span
+    ><input
+      class="form-control"
+      type="text"
+      name="img"
+      [(ngModel)]="newStarType.imageUrl"
+    />
+  </div>
+
+  <div class="input-group mb-3">
+    <button class="btn btn-outline-light" (click)="finishCreate(newStarType)">
+      Save
+    </button>
+    <button class="btn btn-outline-light" (click)="newStarType = null">
+      Cancel
+    </button>
+  </div>
+</form>

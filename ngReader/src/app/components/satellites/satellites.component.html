@@ -1,0 +1,246 @@
+<h1>Satellites</h1>
+
+<div *ngIf="!selected && !newSatellite">
+  <div class="input-group mb-3">
+    <button class="btn btn-outline-light" (click)="satellitetCreate()">
+      Create Satellite
+    </button>
+  </div>
+
+  <!-- ***************************************************** -->
+  <!-- show table -->
+  <!-- ***************************************************** -->
+
+  <table class="table table-dark table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>About</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of satellites">
+        <td (click)="selected = item">{{ item.name }}</td>
+        <td (click)="selected = item">{{ item.about }}</td>
+        <td>
+          <button
+            class="btn btn-outline-danger"
+            (click)="deleteSatellite(item.id)"
+          >
+            X
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ***************************************************** -->
+<!-- show individual Satellite -->
+<!-- ***************************************************** -->
+
+<div *ngIf="selected && !editSatellite">
+  <div class="input-group mb-3">
+    <button class="btn btn-outline-light" (click)="selected = null">
+      Go Back
+    </button>
+    <button class="btn btn-outline-light" (click)="satelliteEdit()">
+      Edit Satellite
+    </button>
+  </div>
+  <h2>{{ selected.name }}</h2>
+  <h2>{{ selected.about }}</h2>
+  <ul>
+    <li>Natural: {{ selected.natural }}</li>
+    <li>Orbital Circumferance: {{ selected.orbitCircumferance }}</li>
+    <li>Orbital Radius: {{ selected.orbitRadius }}</li>
+    <li *ngIf="selected.planet">
+      <a style="color: white" [href]="'#/home/' + selected.planet.id">
+        Planet: {{ selected.planet.name }}
+      </a>
+    </li>
+  </ul>
+  <img [src]="selected.imageUrl" width="250" height="250" />
+</div>
+
+<!-- ***************************************************** -->
+<!-- edit Satellite -->
+<!-- ***************************************************** -->
+
+<form *ngIf="editSatellite">
+  <div class="input-group mb-3">
+    <span class="input-group-text">Name:</span
+    ><input
+      class="form-control"
+      type="text"
+      name="name"
+      [(ngModel)]="editSatellite.name"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">About:</span
+    ><textarea
+      class="form-control"
+      name="about"
+      [(ngModel)]="editSatellite.about"
+    ></textarea>
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">Image:</span
+    ><input
+      class="form-control"
+      type="text"
+      name="img"
+      [(ngModel)]="editSatellite.imageUrl"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">Natural:</span
+    ><input
+      class="form-control"
+      type="number"
+      step="0.01"
+      min="0"
+      name="natural"
+      [(ngModel)]="editSatellite.natural"
+    />
+    <span class="input-group-text">Radius:</span
+    ><input
+      class="form-control"
+      type="number"
+      step="0.01"
+      min="0"
+      name="radius"
+      [(ngModel)]="editSatellite.radius"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">Orbital Circumferance: </span
+    ><input
+      class="form-control"
+      type="number"
+      step="0.1"
+      min="0"
+      name="lieftime"
+      [(ngModel)]="editSatellite.orbitCircumferance"
+    />
+    <span class="input-group-text">Orbit Radius:</span
+    ><input
+      class="form-control"
+      type="number"
+      step="0.01"
+      min="0"
+      name="orbitRadius"
+      [(ngModel)]="editSatellite.orbitRadius"
+    />
+  </div>
+
+  <div class="input-group mb-3">
+    <span class="input-group-text">Planet:</span
+    ><select class="form-select" name="planet" [(ngModel)]="plnt.id">
+      <option *ngFor="let planet of planets" [value]="planet.id">
+        {{ planet.name }}
+      </option>
+    </select>
+  </div>
+  <div class="input-group mb-3">
+    <button
+      class="btn btn-outline-light"
+      (click)="finishEdit(editSatellite.id, editSatellite)"
+    >
+      Save
+    </button>
+    <button class="btn btn-outline-light" (click)="editSatellite = null">
+      Cancel
+    </button>
+    <button
+      class="btn btn-outline-light"
+      *ngIf="selected"
+      (click)="selected = null; editSatellite = null"
+    >
+      Show Table
+    </button>
+  </div>
+</form>
+<!-- ***************************************************** -->
+<!-- new Satellite -->
+<!-- ***************************************************** -->
+
+<form *ngIf="newSatellite">
+  <div class="input-group mb-3">
+    <span class="input-group-text">Name:</span
+    ><input
+      class="form-control"
+      type="text"
+      name="name"
+      [(ngModel)]="newSatellite.name"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">About:</span
+    ><textarea
+      class="form-control"
+      name="about"
+      [(ngModel)]="newSatellite.about"
+    ></textarea>
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">Image:</span
+    ><input
+      class="form-control"
+      type="text"
+      name="img"
+      [(ngModel)]="newSatellite.imageUrl"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">Natural:</span
+    ><input
+      class="form-control"
+      type="number"
+      step="0.01"
+      name="natural"
+      min="0"
+      [(ngModel)]="newSatellite.natural"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">Orbital Circumferance:</span
+    ><input
+      class="form-control"
+      type="number"
+      step="0.01"
+      name="orbitCircumferance"
+      min="0"
+      [(ngModel)]="newSatellite.orbitCircumferance"
+    />
+    <span class="input-group-text">Orbit Radius:</span
+    ><input
+      class="form-control"
+      type="number"
+      step="0.01"
+      min="0"
+      name="orbitRadius"
+      [(ngModel)]="newSatellite.orbitRadius"
+    />
+  </div>
+
+  <div class="input-group mb-3">
+    <span class="input-group-text">Planet:</span
+    ><select class="form-select" name="satelliteType" [(ngModel)]="plnt.id">
+      <option *ngFor="let planet of planets" [value]="planet.id">
+        {{ planet.name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="input-group mb-3">
+    <button class="btn btn-outline-light" (click)="finishCreate(newSatellite)">
+      Save
+    </button>
+    <button class="btn btn-outline-light" (click)="newSatellite = null">
+      Cancel
+    </button>
+  </div>
+</form>

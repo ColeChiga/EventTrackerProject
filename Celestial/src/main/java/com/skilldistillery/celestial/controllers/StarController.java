@@ -93,6 +93,12 @@ public class StarController {
 	@PostMapping(path = { "stars" })
 	public Star createStar(@RequestBody Star star, HttpServletResponse resp) {
 		try {
+			if(star.getStarType()!=null && star.getStarType().getId()==0) {
+				star.setStarType(null);
+			}
+			if(star.getConstellation()!=null && star.getConstellation().getId()==0) {
+				star.setConstellation(null);
+			}
 			star = starService.create(star);
 			System.out.println(star);
 			resp.setStatus(201);
@@ -109,6 +115,12 @@ public class StarController {
 	public Star updateStar(@PathVariable("id") int id, @RequestBody Star star,
 			HttpServletResponse resp) {
 		try {
+			if(star.getStarType()!=null && star.getStarType().getId()==0) {
+				star.setStarType(null);
+			}
+			if(star.getConstellation()!=null && star.getConstellation().getId()==0) {
+				star.setConstellation(null);
+			}
 			star = starService.update(id, star);
 			if (star != null)
 			{
