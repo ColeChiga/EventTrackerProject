@@ -29,26 +29,51 @@
 		<div class="row">
 			<div class="col-6" id="createStar">
 				<form name="newStar">
-					*Name: <input class="form-control" type="text" name="name" placeholder="name" required="required">
-					<br>About:<textarea class="form-control" name="about" placeholder="about"></textarea>
-					<br>Image: <input  class="form-control" type="text" name="imageUrl" placeholder="image url">
-					<br>Age: <input class="form-control" type="number" name="age" placeholder="age" min="0" value="0" step="0.01"> billion
-					years
-					<br>Lifetime: <input class="form-control" type="number" name="lifetime" placeholder="lifetime" min="0" value="0"
-						step="0.01"> billion years
-					<br>Right Ascention: <input class="form-control" type="number" name="ascension" placeholder="ascension" min="0" value="0"
-						step="0.01"> degrees
-					<br>Declination: <input class="form-control" type="number" name="declination" placeholder="declination" min="0" value="0"
-						step="0.01"> degrees
-					<br>Solar Mass: <input class="form-control" type="number" name="solarMasses" placeholder="solar masses" min="0"
-						value="0" step="0.01"> Solar Mass (M⊙)
-					<br>Luminosity: <input class="form-control" type="number" name="luminosity" placeholder="luminosity" min="0" value="0"
-						step="0.01"> Solar Luminosity (L &#229; )
-					<br>Radius: <input class="form-control" type="number" name="radius" placeholder="radius" min="0" value="0" step="0.01">
-					Solar Radius (R⊙)
-					<br>Star Type: <select class="form-select" id="starType" name="starType"></select>
-					<br>Constellation: <select class="form-select" id="constellation" name="constellation"></select>
-					<br><input type="submit" name="submit" value="Create Star">
+					  <div class="input-group mb-3">
+					<span class="input-group-text">*Name:</span><input class="form-control" type="text" name="name" placeholder="name" required="required">
+					</div>
+					  <div class="input-group mb-3">
+					<span class="input-group-text">About:</span><textarea class="form-control" name="about"
+						placeholder="about"></textarea>
+					</div>
+					  <div class="input-group mb-3">
+					<span class="input-group-text">Image:</span> <input class="form-control" type="text"
+						name="imageUrl" placeholder="image url">
+					</div>
+					  <div class="input-group mb-3">
+					<span class="input-group-text">Age:</span><input class="form-control" type="number" name="age"
+						placeholder="age" min="0" value="0" step="0.01"> <span class="input-group-text">billion
+						years</span>
+					<span class="input-group-text">Lifetime:</span><input class="form-control" type="number"
+						name="lifetime" placeholder="lifetime" min="0" value="0" step="0.01"> <span
+						class="input-group-text">billion years</span>
+					</div>
+					<div class="input-group mb-3">
+					<span class="input-group-text">Right Ascention:</span> <input class="form-control" type="number"
+						name="ascension" placeholder="ascension" min="0" value="0" step="0.01"> <span
+						class="input-group-text">degrees</span>
+					<span class="input-group-text">Declination:</span><input class="form-control" type="number"
+						name="declination" placeholder="declination" min="0" value="0" step="0.01"> <span
+						class="input-group-text">degrees</span>
+					</div>
+					<div class="input-group mb-3">
+					<span class="input-group-text">Solar Mass:</span> <input class="form-control" type="number"
+						name="solarMasses" placeholder="solar masses" min="0" value="0" step="0.01"> <span
+						class="input-group-text">Solar Mass (M⊙)</span>
+					<span class="input-group-text">Luminosity:</span><input class="form-control" type="number"
+						name="luminosity" placeholder="luminosity" min="0" value="0" step="0.01"> <span
+						class="input-group-text">Solar Luminosity (L⊙)</span>
+					<span class="input-group-text">Radius:</span><input class="form-control" type="number"
+						name="radius" placeholder="radius" min="0" value="0" step="0.01">
+					<span class="input-group-text">Solar Radius (R⊙)</span>
+					</div>
+					<div class="input-group mb-3">
+					<span class="input-group-text">Star Type:</span><select class="form-select" id="starType"
+						name="starType"></select>
+					<span class="input-group-text">Constellation:</span><select class="form-select"
+						id="constellation" name="constellation"></select>
+					<input type="submit" name="submit" value="Create Star">
+					</div>
 				</form>
 			</div>
 
@@ -57,10 +82,10 @@
 
 			</div>
 		</div>
-		
+
 		<hr>
 		<a href="index.html">Go To Angular front-end</a>
-		
+
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

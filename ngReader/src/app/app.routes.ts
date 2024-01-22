@@ -13,6 +13,7 @@ export const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'about', component: AboutComponent},
   {path: 'starTypes', component: StarTypesComponent},
+  {path: 'starTypes/:starTypeId', component: StarTypesComponent},
   {path: 'planets', component: PlanetsComponent},
   {path: 'home/:starId', component: HomeComponent},
   {path: 'planets/:planetId', component: PlanetsComponent},

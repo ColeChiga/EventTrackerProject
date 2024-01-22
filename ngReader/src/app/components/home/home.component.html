@@ -36,7 +36,7 @@
 <div *ngIf="selected && !editStar">
   <div class="input-group mb-3">
     <button class="btn btn-outline-light" (click)="selected = null">
-      Go Back
+      Star Table
     </button>
     <button class="btn btn-outline-light" (click)="startEdit()">
       Edit Star
@@ -55,7 +55,7 @@
       </a>
     </li>
     <li *ngIf="selected.constellation">
-      <a style="color:white " [href]="'#/home/'+selected.constellation.id">
+      <a style="color:white " [href]="'#/constellations/'+selected.constellation.id">
         Constellation: {{ selected.constellation.name }}
       </a>
     </li>
@@ -114,7 +114,6 @@
       name="age"
       [(ngModel)]="editStar.age"
     />
-    <!-- pattern="([0-1][0-9])|(2[0-3]):[0-5][0-9]:[0-5][0-9]" -->
     <span class="input-group-text">Lifetime:</span
     ><input
       class="form-control"
