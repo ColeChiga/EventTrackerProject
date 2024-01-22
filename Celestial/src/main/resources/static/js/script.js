@@ -394,6 +394,7 @@ function editForm(star) {
 
 	let form = document.createElement('form');
 	form.name = "editForm"
+	form.
 	starDiv.appendChild(form);
 
 	let div1 = document.createElement('div');
@@ -409,6 +410,7 @@ function editForm(star) {
 	div1.textContent = "Name: ";
 	form.appendChild(div1);
 	h1 = document.createElement('input');
+	h1.class="form-control";
 	h1.type = "text";
 	h1.name = "name";
 	h1.value = star.name;
@@ -419,6 +421,7 @@ function editForm(star) {
 	form.appendChild(div1);
 	h1 = document.createElement('textarea');
 	h1.name = "about";
+	h1.class="form-control";
 	h1.value = star.about;
 	div1.appendChild(h1);
 
@@ -427,6 +430,7 @@ function editForm(star) {
 	form.appendChild(div1);
 	h1 = document.createElement('input');
 	h1.type = "text";
+	h1.class="form-control";
 	h1.name = "imageUrl";
 	h1.value = star.imageUrl;
 	div1.appendChild(h1);
@@ -436,6 +440,7 @@ function editForm(star) {
 	form.appendChild(div1);
 	h1 = document.createElement('input');
 	h1.type = "number";
+	h1.class="form-control";
 	h1.name = "age";
 	h1.value = star.age;
 	h1.min = '0';
@@ -447,6 +452,7 @@ function editForm(star) {
 	form.appendChild(div1);
 	h1 = document.createElement('input');
 	h1.type = "number";
+	h1.class="form-control";
 	h1.name = "lifetime";
 	h1.value = star.lifetime;
 	h1.min = '0';
@@ -458,6 +464,7 @@ function editForm(star) {
 	form.appendChild(div1);
 	h1 = document.createElement('input');
 	h1.type = "number";
+	h1.class="form-control";
 	h1.name = "ascension";
 	h1.value = star.ascension;
 	h1.min = '0';
@@ -469,6 +476,7 @@ function editForm(star) {
 	form.appendChild(div1);
 	h1 = document.createElement('input');
 	h1.type = "number";
+	h1.class="form-control";
 	h1.name = "declination";
 	h1.value = star.declination;
 	h1.min = '0';
@@ -480,6 +488,7 @@ function editForm(star) {
 	form.appendChild(div1);
 	h1 = document.createElement('input');
 	h1.type = "number";
+	h1.class="form-control";
 	h1.name = "solarMasses";
 	h1.value = star.solarMasses;
 	h1.min = '0';
@@ -491,6 +500,7 @@ function editForm(star) {
 	form.appendChild(div1);
 	h1 = document.createElement('input');
 	h1.type = "number";
+	h1.class="form-control";
 	h1.name = "luminosity";
 	h1.value = star.luminosity;
 	h1.min = '0';
@@ -502,6 +512,7 @@ function editForm(star) {
 	form.appendChild(div1);
 	h1 = document.createElement('input');
 	h1.type = "number";
+	h1.class="form-control";
 	h1.name = "radius";
 	h1.value = star.radius;
 	h1.min = '0';
@@ -513,6 +524,7 @@ function editForm(star) {
 	form.appendChild(div1);
 	h1 = document.createElement('select');
 	h1.id = "editStarType";
+	h1.class="form-select";
 	h1.name = "starType";
 	div1.appendChild(h1);
 	loadStarTypeForForm('editStarType');
@@ -522,6 +534,7 @@ function editForm(star) {
 	form.appendChild(div1);
 	h1 = document.createElement('select');
 	h1.id = "editConstellation";
+	h1.class="form-select";
 	h1.name = "constellation";
 	div1.appendChild(h1);
 	loadConstellationForForm('editConstellation');
